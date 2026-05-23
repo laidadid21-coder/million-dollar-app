@@ -1,305 +1,264 @@
 import streamlit as st
 import streamlit.components.v1 as components
-import json
 
-# ==========================================
-# 1. إعدادات البنية السيادية فائقة التوسع (CORE CONFIG)
-# ==========================================
+# 1. إعدادات البنية السيادية فائقة التوسع (V5.2)
 st.set_page_config(
-    page_title="Sovereign Tech OS v5.0 | Adid Al-Eid",
-    page_icon="💎",
+    page_title="Sovereign Tech OS v5.2 | مكتب عديد العيد",
+    page_icon="⚡",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# إدارة حالة النظام (Session State)
+# 2. إدارة النظام واللغة وسلة التسوق
 if "lang" not in st.session_state:
     st.session_state["lang"] = "العربية"
 if "cart" not in st.session_state:
     st.session_state["cart"] = []
-if "auth" not in st.session_state:
-    st.session_state["auth"] = False
 
-# ==========================================
-# 2. القاموس المهني الشامل (MULTILINGUAL ENGINE)
-# ==========================================
 translations = {
     "العربية": {
-        "title": "مؤسسة عديد العيد للسيادة الرقمية",
-        "tagline": "هندسة النظم القانونية والأتمتة السيادية للمؤسسات",
-        "subtitle": "عصر الورق انتهى. نحن نبني حصوناً رقمية تدير نفسها ذاتياً بعيداً عن الرقابة السحابية العامة.",
-        "nav_home": "🏠 الرئيسية",
-        "nav_market": "🛍️ المتجر السيادي",
-        "nav_security": "🛡️ ميثاق الأمان",
-        "nav_about": "📖 فلسفة النظام",
-        "nav_admin": "🔒 تحكم النظام",
-        "buy_now": "إضافة للتعاقد 🛒",
-        "cart_title": "📦 سلة الأنظمة المختارة",
-        "checkout": "تأكيد طلب التفعيل",
-        "sidebar_head": "🖥️ تحكم السيادة v5.0",
-        "prod_1": "أتمتة العقود الذكية", "desc_1": "نظام تدقيق وتوقيع آلي يكتشف الثغرات القانونية فورياً.",
-        "prod_2": "بنية n8n السيادية", "desc_2": "ربط كامل لأقسام الشركة عبر سيرفرات محلية مشفرة.",
-        "prod_3": "الهندسة العكسية للمصانع", "desc_3": "فحص الأنظمة التشغيلية وسد الثغرات الأمنية في خطوط الإنتاج.",
-        "prod_4": "Ollama AI Hub", "desc_4": "ذكاء اصطناعي محلي (LLM) يعمل بدون إنترنت لخصوصية تامة.",
-        "prod_5": "محرك العمولات الآلي", "desc_5": "نظام جني أرباح من الترافيك والتحويلات الرقمية بشكل مستقل.",
-        "prod_6": "حزمة التحول SME", "desc_6": "خطة الانتقال الكامل للمؤسسات الصغيرة من الورق إلى الأتمتة."
+        "title": "مكتب المحامي عديد العيد",
+        "tagline": "الرقمنة القانونية والتجارية الشاملة للمؤسسات والشركات",
+        "subtitle": "عصر الورق انتهى. نظام الأتمتة المتقدم والسيادة الرقمية المستدامة عبر تقنيات Air-Gapped AI.",
+        "download_btn": "📥 تحميل العرض التنفيذي للمؤسسات (PDF)",
+        "contact_title": "⚙️ مركز الاتصال وتحويل العمولات المباشر",
+        "whatsapp_text": "💬 تواصل فوري عبر WhatsApp لتأكيد التعاقد",
+        "sidebar_head": "🖥️ لوحة التحكم السيادية",
+        "lang_label": "🌐 لغة النظام:",
+        "buy_btn": "إضافة للسلة 🛒",
+        "security_tab": "🛡️ حصن الأمان",
+        "philosophy_tab": "📖 الفلسفة الرقمية",
+        "prod_tag_1": "أتمتة كاملة", "prod_title_1": "نظام تدقيق وأتمتة العقود الذكية",
+        "prod_tag_2": "أتمتة سحابية", "prod_title_2": "مستودعات n8n السيادية المتكاملة",
+        "prod_tag_3": "هندسة عكسية", "prod_title_3": "جلسة التدقيق الهيكلي للمصانع",
+        "prod_tag_4": "أتمتة محلية", "prod_title_4": "البنية المستقلة (Ollama Hub)",
+        "prod_tag_5": "تسويق رقمي", "prod_title_5": "محرك جني العمولات الآلي",
+        "prod_tag_6": "رقمنة جزئية", "prod_title_6": "حزمة التحول الرقمي للمؤسسات",
+        "sec_desc": "نظامنا يعمل ببروتوكول 'Zero-Knowledge'، مما يعني أن بياناتك مشفرة محلياً ولا يمكن حتى لنا الوصول إليها."
     },
     "English": {
-        "title": "Adid Al-Eid Sovereign Tech OS",
-        "tagline": "Architecting Digital Sovereignty & Legal Automation",
-        "subtitle": "The paper era is over. We build self-governing digital fortresses independent of public clouds.",
-        "nav_home": "🏠 Home",
-        "nav_market": "🛍️ Sovereign Market",
-        "nav_security": "🛡️ Security Vault",
-        "nav_about": "📖 Philosophy",
-        "nav_admin": "🔒 Admin Control",
-        "buy_now": "Add to Contract 🛒",
-        "cart_title": "📦 Selected Systems Cart",
-        "checkout": "Confirm Activation",
-        "sidebar_head": "🖥️ Sovereign Control v5.0",
-        "prod_1": "Smart Contracts Automation", "desc_1": "Automated legal auditing and signing system.",
-        "prod_2": "Sovereign n8n Node", "desc_2": "Full enterprise connectivity via local encrypted servers.",
-        "prod_3": "Industrial Rev-Engineering", "desc_3": "Operational auditing and security patching for factories.",
-        "prod_4": "Ollama AI Hub", "desc_4": "Local AI (LLM) operating offline for total data privacy.",
-        "prod_5": "Comm. Arbitrage Engine", "desc_5": "Automated monetization system for digital traffic.",
-        "prod_6": "SME Digital Pack", "desc_6": "Complete paperless transformation for small businesses."
+        "title": "Adid Al-Eid Law Firm",
+        "tagline": "Comprehensive Legal & Corporate Digitalization",
+        "subtitle": "The paper era is over. Advanced automation and sustainable digital sovereignty via Air-Gapped AI.",
+        "download_btn": "📥 Download SME Corporate Proposal (PDF)",
+        "contact_title": "⚙️ Conversion & Commission Center",
+        "whatsapp_text": "💬 Instant WhatsApp for Contract Activation",
+        "sidebar_head": "🖥️ Sovereign Tech OS",
+        "lang_label": "🌐 System Language:",
+        "buy_btn": "Add to Cart 🛒",
+        "security_tab": "🛡️ Security Vault",
+        "philosophy_tab": "📖 Philosophy",
+        "prod_tag_1": "Total Automation", "prod_title_1": "Smart Contracts Auditing Pipeline",
+        "prod_tag_2": "Cloud Automation", "prod_title_2": "Sovereign n8n Infrastructure",
+        "prod_tag_3": "Reverse Engineering", "prod_title_3": "Industrial Operational Auditing",
+        "prod_tag_4": "Local Sovereignty", "prod_title_4": "Offline AI (Ollama Hub)",
+        "prod_tag_5": "Digital Arbitrage", "prod_title_5": "Automated Affiliate Engine",
+        "prod_tag_6": "Partial Digitalization", "prod_title_6": "SME Transformation Package",
+        "sec_desc": "Our system runs on 'Zero-Knowledge' protocols. Your data is encrypted locally and remains inaccessible even to us."
     }
 }
 
 t = translations[st.session_state["lang"]]
 
-# ==========================================
-# 3. هندسة التصميم الخارقة (CSS 3D & NEON)
-# ==========================================
-st.markdown(f"""
+# 3. هندسة التصميم البصري (دمج القديم مع 3D الجديد)
+st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
     
-    html, body, [data-testid="stAppViewContainer"] {{
-        background: radial-gradient(circle at top right, #0f172a, #020617) !important;
-        color: #e2e8f0 !important;
+    html, body, [data-testid="stAppViewContainer"], .main {
+        background-color: #0b0f19 !important;
+        color: #f8fafc !important;
         font-family: 'Cairo', sans-serif !important;
-        direction: {"rtl" if st.session_state["lang"] == "العربية" else "ltr"};
-    }}
+    }
+    
+    /* الشعار الرقمي القديم */
+    .digital-logo {
+        width: 100px; height: 100px; margin: 0 auto 15px auto;
+        border-radius: 50%; background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+        border: 3px solid #60a5fa; box-shadow: 0 0 25px rgba(59, 130, 246, 0.6);
+        display: flex; align-items: center; justify-content: center;
+        font-weight: 900; font-size: 28px; color: white;
+    }
+    
+    /* بطاقات المنتجات مع تأثيرات إضافية */
+    .premium-card {
+        background: linear-gradient(145deg, #111827, #1f2937);
+        border: 1px solid #374151; border-radius: 16px; padding: 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        text-align: center; height: 350px;
+        display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .premium-card:hover { transform: translateY(-10px); border-color: #3b82f6; box-shadow: 0 0 20px rgba(59,130,246,0.4); }
 
-    /* تأثير الزجاج المتوهج */
-    .glass-card {{
-        background: rgba(30, 41, 59, 0.4);
-        backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 24px;
-        padding: 30px;
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-        text-align: center;
-        margin-bottom: 20px;
-    }}
-    .glass-card:hover {{
-        transform: translateY(-12px) scale(1.02);
-        border-color: #3b82f6;
-        box-shadow: 0 0 25px rgba(59, 130, 246, 0.3);
-    }}
+    .card-tag { background: #1e293b; color: #60a5fa; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; }
+    .card-price { color: #10b981; font-size: 24px; font-weight: bold; }
+    
+    /* أيقونات 3D متحركة */
+    .floating-icon { font-size: 40px; animation: float 3s ease-in-out infinite; display: block; margin: 10px 0; }
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
-    .icon-3d {{
-        font-size: 60px;
-        margin-bottom: 20px;
-        filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5));
-        display: inline-block;
-        animation: float 3s ease-in-out infinite;
-    }}
-    @keyframes float {{
-        0% {{ transform: translateY(0px); }}
-        50% {{ transform: translateY(-10px); }}
-        100% {{ transform: translateY(0px); }}
-    }}
-
-    .hero-title {{
-        font-size: 55px;
-        font-weight: 900;
-        background: linear-gradient(to right, #60a5fa, #f472b6, #34d399);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        margin-bottom: 10px;
-    }}
-
-    .stButton>button {{
-        background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
-        color: white !important;
-        border: none;
-        border-radius: 15px;
-        padding: 12px 30px;
-        font-weight: 700;
-        width: 100%;
-        transition: 0.4s;
-    }}
-    .stButton>button:hover {{
-        box-shadow: 0 0 20px rgba(37, 99, 235, 0.6);
-        transform: scale(1.03);
-    }}
-
-    [data-testid="stSidebar"] {{
-        background-color: #020617 !important;
-        border-right: 1px solid #1e293b !important;
-    }}
+    .whatsapp-btn {
+        background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+        color: white !important; text-align: center; padding: 14px;
+        border-radius: 30px; display: block; font-weight: bold; text-decoration: none;
+    }
     </style>
 """, unsafe_allow_html=True)
 
 # ==========================================
-# 4. القائمة الجانبية (CONTROL SIDEBAR)
+# 4. القائمة الجانبية (نفس الشعار القديم + ميزات جديدة)
 # ==========================================
 with st.sidebar:
-    st.markdown('<div style="text-align:center;"><span class="icon-3d">💎</span></div>', unsafe_allow_html=True)
-    st.markdown(f"<h2 style='text-align:center;'>{t['sidebar_head']}</h2>", unsafe_allow_html=True)
+    st.markdown('<div class="digital-logo">LFD</div>', unsafe_allow_html=True)
+    st.markdown(f"<h3 style='text-align:center; color:white;'>{t['sidebar_head']}</h3>", unsafe_allow_html=True)
     
-    st.session_state["lang"] = st.selectbox("🌐 لغة النظام / Language", ["العربية", "English"])
-    
-    st.divider()
-    menu = st.radio("القائمة الرئيسية", [t["nav_home"], t["nav_market"], t["nav_security"], t["nav_about"], t["nav_admin"]])
+    st.session_state["lang"] = st.selectbox(t['lang_label'], ["العربية", "English"])
     
     st.divider()
-    st.markdown(f"### {t['cart_title']}")
-    if not st.session_state["cart"]:
-        st.caption("السلة فارغة حالياً")
+    app_mode = st.radio("القائمة:", ["🏠 الواجهة الرئيسية", t["security_tab"], t["philosophy_tab"], "🔒 إدارة النظام"])
+    
+    st.divider()
+    st.markdown("### 🛒 سلة المشتريات")
+    if not st.session_state["cart"]: st.caption("السلة فارغة")
     else:
-        for item in st.session_state["cart"]:
-            st.success(f"✅ {item}")
-        if st.button(t["checkout"]):
-            st.balloons()
-            st.toast("تم إرسال طلب تفعيل الأنظمة للمكتب!")
+        for item in st.session_state["cart"]: st.success(f"✅ {item}")
+        if st.button("تأكيد الطلب 🚀"): st.balloons()
 
 # ==========================================
-# 5. الصفحة الرئيسية (HERO SECTION)
+# 5. الواجهة الرئيسية (الصور والكاروسيل القديم مع التحديث)
 # ==========================================
-if menu == t["nav_home"]:
+if app_mode == "🏠 الواجهة الرئيسية":
+    # الهيدر القديم الرائع
     st.markdown(f"""
-    <div style="text-align:center; padding: 50px 0;">
-        <h1 class="hero-title">{t['title']}</h1>
-        <h3 style="color: #94a3b8; font-weight: 400;">{t['tagline']}</h3>
-        <p style="max-width: 900px; margin: 30px auto; font-size: 18px; color: #64748b; line-height: 1.8;">{t['subtitle']}</p>
+    <div style="text-align:center; margin-bottom:30px;">
+        <h1 style="font-size: 45px; font-weight: 900; background: linear-gradient(to left, #3b82f6, #60a5fa, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+            {t['title']}
+        </h1>
+        <h3 style="color: #cbd5e1; font-weight: 400;">{t['tagline']}</h3>
+        <p style="color: #64748b; max-width: 800px; margin: 0 auto;">{t['subtitle']}</p>
     </div>
     """, unsafe_allow_html=True)
 
-    col1, col2, col3 = st.columns(3)
-    features = [
-        {"icon": "🛡️", "title": "سيادة كاملة", "desc": "بياناتك تحت سيطرتك الفيزيائية، لا سحابة عامة بعد اليوم."},
-        {"icon": "⚡", "title": "أتمتة فورية", "desc": "تحويل العمليات الإدارية من أيام إلى ثوانٍ معدودة."},
-        {"icon": "🧠", "title": "ذكاء محلي", "desc": "نماذج AI ضخمة تعمل على سيرفراتك الخاصة وبدون إنترنت."}
-    ]
-    for i, col in enumerate([col1, col2, col3]):
-        with col:
-            st.markdown(f"""
-            <div class="glass-card">
-                <div class="icon-3d">{features[i]['icon']}</div>
-                <h3>{features[i]['title']}</h3>
-                <p style="color:#94a3b8; font-size:14px;">{features[i]['desc']}</p>
-            </div>
-            """, unsafe_allow_html=True)
+    # زر التحميل القديم
+    st.columns([1, 2, 1])[1].download_button(t["download_btn"], "EXECUTIVE PROPOSAL CONTENT", file_name="Proposal.txt")
 
-# ==========================================
-# 6. المتجر الرقمي (MARKETPLACE)
-# ==========================================
-elif menu == t["nav_market"]:
-    st.markdown(f"<h1 style='text-align:center;'>{t['nav_market']}</h1>", unsafe_allow_html=True)
-    st.markdown("<p style='text-align:center; color:#60a5fa;'>اختر الأنظمة المطلوبة لبناء بنيتك السيادية</p>", unsafe_allow_html=True)
+    st.divider()
+
+    # --- رجوع الكاروسيل بالصور القديمة (لا حذف!) ---
+    carousel_html = """
+    <div style="direction: ltr; display: flex; justify-content: center; align-items: center; background: #0b0f19; padding: 10px 0; overflow: hidden;">
+        <style>
+            .container { width: 100%; max-width: 1100px; height: 300px; display: flex; gap: 15px; perspective: 1000px; }
+            .card {
+                flex: 1; height: 100%; border-radius: 12px; overflow: hidden; position: relative;
+                border: 2px solid #334155; transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1); cursor: pointer;
+            }
+            .card:hover { flex: 3.5; border-color: #3b82f6; box-shadow: 0 15px 30px rgba(59,130,246,0.3); }
+            .card img { width: 100%; height: 100%; object-fit: cover; }
+            .card-info {
+                position: absolute; bottom: 0; left: 0; right: 0; padding: 15px; text-align: right;
+                background: linear-gradient(to top, rgba(0,0,0,0.95), transparent); color: white; opacity: 0; transition: 0.3s;
+            }
+            .card:hover .card-info { opacity: 1; }
+            .card-info h3 { margin: 0; font-size: 16px; color: #60a5fa; font-family: 'Cairo', sans-serif; }
+        </style>
+        <div class="container">
+            <div class="card"><img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500"><div class="card-info"><h3>Contracts Automation</h3></div></div>
+            <div class="card"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500"><div class="card-info"><h3>n8n Local Ecosystem</h3></div></div>
+            <div class="card"><img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=500"><div class="card-info"><h3>Reverse Engineering</h3></div></div>
+            <div class="card"><img src="https://images.unsplash.com/photo-1600132806370-bf17e65e942f?w=500"><div class="card-info"><h3>Offline AI Sovereign</h3></div></div>
+            <div class="card"><img src="https://images.unsplash.com/photo-1432888622747-4eb9a8efeb07?w=500"><div class="card-info"><h3>Commission Arbitrage</h3></div></div>
+            <div class="card"><img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=500"><div class="card-info"><h3>SME Transformation</h3></div></div>
+        </div>
+    </div>
+    """
+    components.html(carousel_html, height=330)
+    
+    st.divider()
+
+    # --- شبكة المنتجات (تمت إضافة زر الشراء والشرح) ---
+    st.markdown("<h3 style='color:#60a5fa; font-weight:700;'>🔥 الحلول الرقمية (إصدار المؤسسات)</h3>", unsafe_allow_html=True)
+    
+    row1 = st.columns(3)
+    row2 = st.columns(3)
     
     products = [
-        {"id": 1, "name": t["prod_1"], "price": "$499", "desc": t["desc_1"], "icon": "📜"},
-        {"id": 2, "name": t["prod_2"], "price": "$850", "desc": t["desc_2"], "icon": "🔗"},
-        {"id": 3, "name": t["prod_3"], "price": "$1,200", "desc": t["desc_3"], "icon": "⚙️"},
-        {"id": 4, "name": t["prod_4"], "price": "$1,900", "desc": t["desc_4"], "icon": "🧠"},
-        {"id": 5, "name": t["prod_5"], "price": "$350", "desc": t["desc_5"], "icon": "💰"},
-        {"id": 6, "name": t["prod_6"], "price": "$2,500", "desc": t["desc_6"], "icon": "🏢"}
+        {"tag": t["prod_tag_1"], "title": t["prod_title_1"], "price": "$249.99", "icon": "📜"},
+        {"tag": t["prod_tag_2"], "title": t["prod_title_2"], "price": "$642.23", "icon": "🔗"},
+        {"tag": t["prod_tag_3"], "title": t["prod_title_3"], "price": "$525.20", "icon": "⚙️"},
+        {"tag": t["prod_tag_4"], "title": t["prod_title_4"], "price": "$999.00", "icon": "🧠"},
+        {"tag": t["prod_tag_5"], "title": t["prod_title_5"], "price": "$450.00", "icon": "💰"},
+        {"tag": t["prod_tag_6"], "title": t["prod_title_6"], "price": "$1,200.00", "icon": "🏢"},
     ]
 
-    col_m1, col_m2, col_m3 = st.columns(3)
-    for idx, p in enumerate(products):
-        current_col = [col_m1, col_m2, col_m3][idx % 3]
-        with current_col:
+    for i, p in enumerate(products):
+        with (row1[i] if i < 3 else row2[i-3]):
             st.markdown(f"""
-            <div class="glass-card" style="height: 380px; display: flex; flex-direction: column; justify-content: space-between;">
-                <div>
-                    <div class="icon-3d">{p['icon']}</div>
-                    <h4 style="color:white;">{p['name']}</h4>
-                    <p style="font-size:12px; color:#94a3b8;">{p['desc']}</p>
-                </div>
-                <h3 style="color:#10b981;">{p['price']}</h3>
+            <div class="premium-card">
+                <span class="card-tag">{p['tag']}</span>
+                <span class="floating-icon">{p['icon']}</span>
+                <h4 style="color:white;">{p['title']}</h4>
+                <div class="card-price">{p['price']}</div>
             </div>
             """, unsafe_allow_html=True)
-            if st.button(t["buy_now"], key=f"btn_{p['id']}"):
-                st.session_state["cart"].append(p['name'])
-                st.rerun()
+            if st.button(t["buy_btn"], key=f"p_{i}"):
+                st.session_state["cart"].append(p['title'])
+                st.toast(f"تمت إضافة {p['title']}")
 
-# ==========================================
-# 7. ميثاق الأمان (SECURITY VAULT)
-# ==========================================
-elif menu == t["nav_security"]:
-    st.markdown(f"<h1>{t['nav_security']}</h1>", unsafe_allow_html=True)
-    col_sec1, col_sec2 = st.columns(2)
+    st.divider()
     
-    with col_sec1:
-        st.markdown("""
-        <div class="glass-card" style="text-align:right;">
-            <h3>🛡️ ميثاق الخصوصية المطلقة</h3>
-            <p>نحن نؤمن أن المعلومة هي رأس المال الحقيقي، لذلك:</p>
-            <ul style="color:#94a3b8;">
-                <li>لا يتم تخزين أي بيانات للعملاء على سيرفرات خارجية.</li>
-                <li>يتم تسليم العميل 'نود' (Node) محلي خاص به.</li>
-                <li>تشفير PGP لكافة المراسلات الحساسة.</li>
-                <li>إمكانية التشغيل في بيئة معزولة تماماً عن الإنترنت (Air-Gapped).</li>
-            </ul>
+    # منطقة الاتصال والفيديو القديمة
+    col_v, col_w = st.columns([1.8, 1.2])
+    with col_v:
+        st.markdown("<h4 style='color:white;'>🎥 استعراض كفاءة البنية والتشغيل</h4>", unsafe_allow_html=True)
+        st.video("https://www.youtube.com/watch?v=dQw4w9WgXcQ") # ضع رابط الفيديو هنا
+    with col_w:
+        st.markdown(f"<h4>{t['contact_title']}</h4>", unsafe_allow_html=True)
+        st.markdown(f"""
+        <div class="premium-card" style="height:auto; padding:25px;">
+            <p style='font-size:13px; color:#94a3b8;'>بوابة توجيه حركة المرور متصلة بنظام الأتمتة المحلي وإشعارات العمولات الفورية.</p>
+            <a href="https://wa.me/213671816346" target="_blank" class="whatsapp-btn">{t['whatsapp_text']}</a>
         </div>
         """, unsafe_allow_html=True)
-    
-    with col_sec2:
-        st.image("https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500", caption="تشفير سيادي متقدم")
 
 # ==========================================
-# 8. فلسفة المشروع (PHILOSOPHY)
+# 6. قسم الأمان الجديد (Security Vault)
 # ==========================================
-elif menu == t["nav_about"]:
-    st.markdown(f"<h1>{t['nav_about']}</h1>", unsafe_allow_html=True)
-    st.info("نحن ندمج بين القانون، التقنية، والسيادة الرقمية.")
+elif app_mode == t["security_tab"]:
+    st.markdown(f"<h1>{t['security_tab']} 🛡️</h1>", unsafe_allow_html=True)
+    st.info(t["sec_desc"])
     
-    st.markdown("""
-    ### رؤية عديد العيد الرقمية
-    في ظل التحولات العالمية، أصبحت السحابة العامة (Public Cloud) خطراً على سرية الشركات والمؤسسات. 
-    رؤيتنا تتلخص في **"إعادة توطين التقنية"**. 
-    
-    - **لماذا الأتمتة؟** لتقليل الخطأ البشري بنسبة 99%.
-    - **لماذا السيادة؟** لأن من يملك بياناته يملك قراره.
-    - **لماذا عديد العيد؟** لأننا ندمج الخبرة القانونية الصارمة مع هندسة النظم الحديثة.
+    col1, col2 = st.columns(2)
+    with col1:
+        st.markdown("""
+        ### ميزات الحماية السيادية:
+        1. **تشفير AES-256:** جميع الملفات والعقود مشفرة بأعلى المعايير العسكرية.
+        2. **Air-Gapped Ready:** الأنظمة يمكنها العمل بدون إنترنت (Offline) تماماً.
+        3. **سيادة محلية:** بياناتك تخزن في 'نود' محلي داخل مكتبك وليس في خوادم أمريكية أو أوروبية.
+        """)
+    with col2:
+        st.image("https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500")
+
+# ==========================================
+# 7. قسم الفلسفة (Philosophy)
+# ==========================================
+elif app_mode == t["philosophy_tab"]:
+    st.markdown(f"<h1>{t['philosophy_tab']} 📖</h1>", unsafe_allow_html=True)
+    st.write("""
+    نحن نؤمن في **مكتب عديد العيد** بدمج ثلاثة أركان:
+    - **القانون (العدالة):** لضمان حقوقك في العالم الرقمي.
+    - **الإنسان (الإبداع):** لتبقى أنت المتحكم في استراتيجية عملك.
+    - **الآلة (السرعة):** لأتمتة المهام المملة والورقية بنسبة 100%.
     """)
-    st.video("https://www.youtube.com/watch?v=dQw4w9WgXcQ") # رابط تجريبي
+    st.image("https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800")
 
 # ==========================================
-# 9. تحكم النظام (ADMIN LOCK)
+# 8. تحكم النظام (Admin)
 # ==========================================
-elif menu == t["nav_admin"]:
+elif app_mode == "🔒 إدارة النظام":
     st.markdown("## 🔒 Sovereign Control Room")
-    pwd = st.text_input("Enter Master Password:", type="password")
-    if st.button("Authorize"):
-        if pwd == "0000":
-            st.session_state["auth"] = True
-            st.success("Access Granted.")
-        else:
-            st.error("Access Denied.")
-            
-    if st.session_state["auth"]:
-        st.write("---")
-        st.markdown("### 🛠️ مراقبة الأداء المحلي")
-        st.metric(label="Local AI Status", value="Online", delta="Stable")
-        st.metric(label="Automation Flows", value="14 Active", delta="2 Updates")
-
-# ==========================================
-# التذييل الفاخر (FOOTER)
-# ==========================================
-st.markdown("---")
-f_col1, f_col2, f_col3 = st.columns(3)
-with f_col1:
-    st.markdown("🌐 **مكتب عديد العيد** - السيادة الرقمية")
-with f_col2:
-    st.markdown("📧 laidadid21@gmail.com")
-with f_col3:
-    st.markdown("📱 WhatsApp: [+213671816346](https://wa.me/213671816346)")
-
-st.markdown("<div style='text-align:center; font-size:10px; color:#475569;'>Sovereign Tech OS v5.0 | All Rights Reserved 2024</div>", unsafe_allow_html=True)
+    pwd = st.text_input("كلمة المرور:", type="password")
+    if pwd == "0000":
+        st.success("تم الاتصال بالبنية التحتية بنجاح.")
+        st.metric("الحالة", "Online", "Stable")
