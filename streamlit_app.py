@@ -1,42 +1,35 @@
 import streamlit as st
-import requests
 
-# 1. إعدادات النظام السيادي
-st.set_page_config(page_title="Global Sales Nexus", layout="wide")
-st.title("🌐 بوابة التاجر العالمي - منصة المليون دولار")
+# إعداد الصفحة لتكون بملء الشاشة
+st.set_page_config(page_title="منصة المليون دولار", layout="wide")
 
-# 2. لوحة التحكم
+# تصميم Sidebar احترافي
 with st.sidebar:
     st.header("إعدادات التاجر")
-    sales_type = st.radio("نوع المنتج:", ["منتج رقمي (Digital)", "منتج مادي (Physical)"])
-    market_target = st.text_input("السوق المستهدف (مثلاً: الجزائر، الخليج، أمريكا):")
+    product_type = st.radio("نوع المنتج:", ["Digital", "Physical"])
+    target_market = st.multiselect("السوق المستهدف:", ["الجزائر", "الخليج", "أوروبا", "أمريكا"])
+    st.divider()
+    st.info("بروتوكول عديد العيد - تحويل كل معلومة إلى مال")
 
-# 3. إدخال بيانات أي منتج
-st.subheader("تفاصيل المنتج:")
-product_name = st.text_input("اسم المنتج الذي تريد بيعه الآن:")
-price = st.number_input("سعر البيع (بالدولار):", min_value=1.0)
-description = st.text_area("وصف موجز للمنتج:")
+# تصميم المحتوى الرئيسي
+st.title("🌐 بوابة التاجر العالمي - منصة المليون دولار")
+st.subheader("تحليل وتوليد خطط المبيعات السيادية")
 
-# 4. محرك التنفيذ الذكي
+col1, col2 = st.columns(2)
+
+with col1:
+    product_name = st.text_input("اسم المنتج الذي تريد بيعه:")
+    price = st.number_input("سعر البيع (بالدولار):", min_value=0.0, value=20000.0)
+
+with col2:
+    currency = st.selectbox("العملة:", ["USD", "EUR", "DZD"])
+    category = st.selectbox("فئة المنتج:", ["Legal Tech", "Digital Services", "Consulting"])
+
+description = st.text_area("وصف موجز للمنتج (القيمة المضافة):", height=150)
+
 if st.button("🚀 توليد خطة المبيعات السيادية"):
     if product_name:
-        with st.spinner("جاري برمجة إمبراطوريتك الرقمية..."):
-            payload = {
-                "type": sales_type,
-                "target_market": market_target,
-                "product": product_name,
-                "price": price,
-                "description": description,
-                "status": "INITIATING_SALES_FUNNEL"
-            }
-            try:
-                # هذا هو الرابط الذي أعطيتني إياه سابقاً
-                requests.post("http://localhost:5678/webhook/market-analyzer-v1", json=payload)
-                st.success("✅ تم إرسال المنتج للمحرك! سيقوم الذكاء الاصطناعي الآن بكتابة خطة التسويق.")
-                st.json(payload)
-            except:
-                st.error("خطأ في الاتصال بالمحرك الرقمي.")
+        st.success("تم إرسال البيانات للمعالجة - جاري استخراج الثغرات الربحية...")
+        # هنا سيتم ربط الكود بـ n8n لاحقاً
     else:
-        st.error("الرجاء إدخال اسم المنتج.")
-
-st.caption("بروتوكول عديد العيد - تحويل كل معلومة إلى مال.")
+        st.error("يرجى إدخال اسم المنتج للمتابعة.")
