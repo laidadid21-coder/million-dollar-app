@@ -15,7 +15,7 @@ st.markdown("""
     .stButton>button { width: 100%; background-color: #1E3A8A; color: white; border-radius: 8px; font-weight: bold; }
     .stTabs [data-baseweb="tab"] { font-size: 16px; font-weight: bold; }
     </style>
-""", unsafe_index=True)
+""", unsafe_allow_html=True)
 
 # 2. القائمة الجانبية (Sidebar) - إعدادات التاجر والسيادة
 with st.sidebar:
@@ -72,7 +72,6 @@ with tab_product:
             st.image(uploaded_image, caption="المعاينة الحية للأصل الرقمي المرفوع", use_container_width=True)
             st.success("✅ تم دمج الهوية البصرية بنجاح في السيرفر.")
         else:
-            # صورة افتراضية عند عدم رفع صورة
             st.warning("⚠️ في انتظار رفع صورة المنتج أو الشعار الرسمي لتغيير المظهر البدائي.")
 
 # ----------------------------------------------------------------
@@ -102,7 +101,7 @@ with tab_marketing:
             if "لينكدين (LinkedIn B2B Contracts)" in selected_platforms:
                 st.code("عنوان لينكدين: تقليص النفقات القانونية بنسبة 80% باستخدام أنظمة الـ LegalTech السحابية المستدامة.", language="text")
             if "فايسبوك (Facebook Ads & Groups)" in selected_platforms:
-                st.code("عنوان فايسبوك: لأصحاب المشاريع الرقمية، احصل على خطتك السيادية القانونية بضغطة زر واحدة.", language="text")
+                st.code("عنوان فايسبوك: لأصحاب المشاريع الرقمية, احصل على خطتك السيادية القانونية بضغطة زر واحدة.", language="text")
         else:
             st.write("*يرجى اختيار منصة تسويقية واحدة على الأقل لتوليد عناوينها وحملاتها المخصصة تلقائياً.*")
 
