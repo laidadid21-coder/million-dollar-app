@@ -1,160 +1,155 @@
 import streamlit as st
 import streamlit.components.v1 as components
-import pandas as pd
-import numpy as np
+import random
 
-# 1. إعدادات الإمبراطورية العائمة (The Floating Palace)
+# 1. إعدادات الإمبراطورية الرقمية v10.0
 st.set_page_config(
-    page_title="Adid Al-Eid | The Sovereign Ocean v8.0",
-    page_icon="🌊",
+    page_title="Adid Al-Eid | Global Digital Nexus",
+    page_icon="💎",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# 2. إدارة حالة النظام
+# 2. إدارة الحالة (الدولة، السلة، التصنيف)
 if "cart" not in st.session_state: st.session_state["cart"] = []
-if "page" not in st.session_state: st.session_state["page"] = "🏠 القصر الرئيسي"
+if "category" not in st.session_state: st.session_state["category"] = "الكل"
 
-# 3. محرك التصميم الخارق (CSS: Ocean & Gold Luxury)
+# 3. محرك التصميم البصري (فخامة الألوان السيادية: الكحلي الملكي، الذهبي، والأسود)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap');
     
-    /* خلفية المحيط المتحركة */
     html, body, [data-testid="stAppViewContainer"] {
-        background: linear-gradient(180deg, #001219 0%, #003049 50%, #005f73 100%) !important;
-        color: #e9d8a6 !important;
+        background: #020617 !important;
+        color: #f1f5f9 !important;
         font-family: 'Cairo', sans-serif !important;
     }
 
-    /* تأثير الطفو لجميع العناصر */
-    @keyframes float {
-        0% { transform: translateY(0px); }
-        50% { transform: translateY(-15px); }
-        100% { transform: translateY(0px); }
-    }
-
-    /* --- الجهة اليسرى: لوحة تحكم القصر (Sidebar) --- */
+    /* --- الجهة اليسرى (Sidebar) الفخمة جداً --- */
     [data-testid="stSidebar"] {
-        background: rgba(0, 18, 25, 0.9) !important;
-        backdrop-filter: blur(20px);
-        border-right: 2px solid #ee9b00 !important;
-    }
-
-    .stRadio div[role="radiogroup"] label {
-        background: rgba(10, 147, 150, 0.2) !important;
-        border: 1px solid #ee9b00 !important;
-        padding: 15px 25px !important;
-        border-radius: 50px !important; /* شكل بيضاوي فخم */
-        margin-bottom: 15px !important;
-        color: #ffffff !important;
-        font-size: 18px !important;
-        font-weight: 700 !important;
-        transition: 0.4s;
-        text-align: center;
-        display: block;
+        background: rgba(15, 23, 42, 1) !important;
+        border-right: 2px solid #d4af37 !important; /* لون ذهبي ملكي */
     }
     
-    .stRadio div[role="radiogroup"] label:hover {
-        background: #ee9b00 !important;
-        color: #001219 !important;
-        transform: scale(1.05) translateX(10px);
+    .sidebar-title {
+        color: #d4af37; font-size: 28px; font-weight: 900; text-align: center;
+        margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px;
     }
 
-    /* --- السلايدر المتحرك (الصور القديمة مع تأثيرات حديثة) --- */
-    .slider-container {
-        display: flex;
-        gap: 20px;
-        animation: slide 25s linear infinite;
-        width: calc(400px * 8);
+    /* تحسين وضوح أزرار القائمة الجانبية */
+    .stRadio div[role="radiogroup"] label {
+        background: #1e293b !important;
+        border: 1px solid #334155 !important;
+        padding: 12px 20px !important;
+        border-radius: 12px !important;
+        color: #ffffff !important;
+        font-weight: 700 !important;
+        font-size: 16px !important;
+        margin-bottom: 8px !important;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.2);
     }
-    @keyframes slide {
+    .stRadio div[role="radiogroup"] label:hover {
+        border-color: #d4af37 !important;
+        transform: translateX(10px);
+    }
+
+    /* --- السلايدر المتحرك التلقائي --- */
+    @keyframes scroll {
         0% { transform: translateX(0); }
         100% { transform: translateX(calc(-400px * 4)); }
     }
-    .ocean-slide {
-        width: 380px; height: 500px;
-        border-radius: 30px;
-        border: 4px solid #ee9b00;
-        object-fit: cover;
-        box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-        filter: brightness(0.9);
+    .slider-wrapper {
+        display: flex; width: calc(400px * 8);
+        animation: scroll 25s linear infinite;
+    }
+    .slider-wrapper:hover { animation-play-state: paused; }
+    .slide-item {
+        width: 380px; height: 500px; margin: 10px;
+        border-radius: 20px; border: 3px solid #d4af37;
+        object-fit: cover; filter: brightness(0.8);
     }
 
-    /* --- بطاقات المتجر (Amazon Luxury Card) --- */
-    .luxury-card {
-        background: rgba(255, 255, 255, 0.05);
-        backdrop-filter: blur(15px);
-        border: 1px solid rgba(238, 155, 0, 0.3);
-        border-radius: 25px;
-        padding: 25px;
+    /* --- بطاقات المتجر (Amazon Style Luxury) --- */
+    .product-card {
+        background: #0f172a;
+        border: 1px solid #334155;
+        border-radius: 20px;
+        padding: 20px;
         text-align: center;
-        transition: 0.5s;
-        animation: float 4s ease-in-out infinite;
+        transition: 0.4s;
+        height: 480px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
-    .luxury-card:hover {
-        background: rgba(238, 155, 0, 0.1);
-        border-color: #ee9b00;
-        transform: scale(1.05);
+    .product-card:hover {
+        border-color: #d4af37;
+        box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
+        transform: translateY(-10px);
+    }
+    .product-img { width: 100%; height: 180px; border-radius: 10px; object-fit: cover; }
+    .product-price { color: #d4af37; font-size: 24px; font-weight: 900; }
+    
+    /* أيقونات 3D للمنتجات */
+    .icon-3d-box {
+        font-size: 40px; margin-bottom: 10px;
+        filter: drop-shadow(0 0 10px #d4af37);
     }
 
-    .gold-text {
-        background: linear-gradient(90deg, #ee9b00, #e9d8a6);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        font-weight: 900;
-    }
-
-    .buy-button {
-        background: #ee9b00;
-        color: #001219 !important;
-        padding: 12px 25px;
-        border-radius: 15px;
-        font-weight: bold;
-        text-decoration: none;
-        display: inline-block;
-        margin-top: 15px;
+    /* زر الشراء الذهبي */
+    .buy-btn {
+        background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
+        color: #000 !important;
+        padding: 10px; border-radius: 10px;
+        font-weight: 900; text-decoration: none; display: block;
     }
     </style>
 """, unsafe_allow_html=True)
 
 # ==========================================
-# 4. لوحة التحكم الجانبية (The Bridge)
+# 4. القائمة الجانبية (The Control Center)
 # ==========================================
 with st.sidebar:
-    st.markdown('<h1 style="color:#ee9b00; text-align:center; font-size:35px;">LFD OCEAN</h1>', unsafe_allow_html=True)
-    st.markdown('<p style="text-align:center; color:#94d2bd;">SOVEREIGN CONTROL v8.0</p>', unsafe_allow_html=True)
+    st.markdown('<div class="sidebar-title">ADID AL-EID</div>', unsafe_allow_html=True)
+    st.markdown('<p style="text-align:center; color:#94a3b8; font-size:12px; margin-top:-20px;">The Digitalization Source</p>', unsafe_allow_html=True)
     st.divider()
     
-    pages = {
-        "🏠 القصر الرئيسي": "🏠",
-        "🛍️ متجر السيادة": "💎",
-        "📍 رادار الـ GPS": "📡",
-        "🛡️ حصن البيانات": "🔒",
-        "📖 الفلسفة الملكية": "🔱",
-        "⚙️ غرفة المحركات": "⚙️"
-    }
+    # تصنيفات المتجر (10 صفحات)
+    categories = [
+        "🌐 الرئيسية",
+        "🤖 عملاء الذكاء الاصطناعي",
+        "⚡ أنظمة الأتمتة",
+        "📚 مكتبة PDF الرقمية",
+        "📖 كتب ورقية تكنولوجية",
+        "🏛️ تكنولوجيا المكاتب",
+        "🛡️ الأمن والسيادة",
+        "🔗 عقود الشركات الكبرى",
+        "⚙️ الهندسة العكسية",
+        "🎓 التدريب والماستركلاس",
+        "💻 تراخيص البرمجيات"
+    ]
     
-    st.session_state["page"] = st.radio("بوصلة النظام:", list(pages.keys()), label_visibility="collapsed")
+    st.session_state["category"] = st.radio("تصفح الإمبراطورية:", categories)
     
     st.divider()
-    st.markdown(f"### 🛒 السلة الملكية ({len(st.session_state['cart'])})")
-    if st.button("🚀 تفعيل البروتوكول"):
+    st.markdown(f"### 🛒 سلة المشتريات ({len(st.session_state['cart'])})")
+    if st.button("تأكيد الحجز العالمي 🚀"):
         st.balloons()
-        st.success("تم تأكيد الطلب بنجاح")
+        st.success("تم إرسال الطلب لغرفة العمليات")
 
 # ==========================================
-# 1. الصفحة الرئيسية (The Grand Hall)
+# 5. محتوى الصفحة الرئيسية
 # ==========================================
-if st.session_state["page"] == "🏠 القصر الرئيسي":
+if st.session_state["category"] == "🌐 الرئيسية":
     st.markdown("""
-    <div style="text-align:center; padding:30px;">
-        <h1 class="gold-text" style="font-size:70px;">مكتب عديد العيد للسيادة الرقمية</h1>
-        <p style="font-size:25px; color:#94d2bd;">نظام تشغيل المؤسسات العائم فوق سحابة الأمان المطلق</p>
+    <div style="text-align:center; padding:20px;">
+        <h1 style="font-size:55px; font-weight:900; color:#d4af37;">مكتب المحامي عديد العيد</h1>
+        <h2 style="color:#ffffff;">المنبع العالمي لرقمنة القانون والمؤسسات</h2>
+        <p style="font-size:20px; color:#94a3b8; max-width:900px; margin:auto;">نحن لا نتبع التكنولوجيا، نحن من نضع قواعدها. شراكات مع كبرى الشركات العالمية وعقود عابرة للقارات في مجال الأتمتة والسيادة الرقمية.</p>
     </div>
     """, unsafe_allow_html=True)
 
-    # السلايدر المتحرك التلقائي (الصور التي طلبتها)
+    # السلايدر التلقائي الفخم
     images = [
         "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600",
         "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600",
@@ -162,97 +157,74 @@ if st.session_state["page"] == "🏠 القصر الرئيسي":
         "https://images.unsplash.com/photo-1600132806370-bf17e65e942f?w=600"
     ]
     
-    carousel_code = f"""
-    <div style="overflow: hidden; width: 100%; padding: 40px 0;">
-        <div class="slider-container">
-            <img src="{images[0]}" class="ocean-slide">
-            <img src="{images[1]}" class="ocean-slide">
-            <img src="{images[2]}" class="ocean-slide">
-            <img src="{images[3]}" class="ocean-slide">
-            <img src="{images[0]}" class="ocean-slide">
-            <img src="{images[1]}" class="ocean-slide">
-            <img src="{images[2]}" class="ocean-slide">
-            <img src="{images[3]}" class="ocean-slide">
+    slider_code = f"""
+    <div style="overflow: hidden; width: 100%; padding: 30px 0;">
+        <div class="slider-wrapper">
+            <img src="{images[0]}" class="slide-item">
+            <img src="{images[1]}" class="slide-item">
+            <img src="{images[2]}" class="slide-item">
+            <img src="{images[3]}" class="slide-item">
+            <img src="{images[0]}" class="slide-item">
+            <img src="{images[1]}" class="slide-item">
+            <img src="{images[2]}" class="slide-item">
+            <img src="{images[3]}" class="slide-item">
         </div>
     </div>
     """
-    components.html(carousel_code, height=600)
+    components.html(slider_code, height=550)
     
-    st.divider()
-    col1, col2 = st.columns(2)
-    with col1:
-        st.markdown("<h3 class='gold-text'>🔱 استراتيجية الطفو الرقمي</h3>", unsafe_allow_html=True)
-        st.video("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
-    with col2:
-        st.markdown(f"""
-        <div class="luxury-card" style="height:auto; border-top: 5px solid #ee9b00;">
-            <h2 class="gold-text">تواصل مباشر مع الإدارة 📞</h2>
-            <p style="color:#94d2bd;">نحن نبني مستقبلك الرقمي بعيداً عن أعين المتطفلين.</p>
-            <a href="https://wa.me/213671816346" class="buy-button" style="width:100%; font-size:20px;">
-                WhatsApp Instant Bridge 💬
-            </a>
-        </div>
-        """, unsafe_allow_html=True)
+    # قسم الشركاء
+    st.markdown("<h3 style='text-align:center; color:#d4af37;'>🤝 شركاء النجاح العالمي</h3>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align:center; color:#64748b;'>نظامنا معتمد في أكثر من 50 شركة كبرى ومكاتب محاماة دولية</p>", unsafe_allow_html=True)
 
 # ==========================================
-# 2. متجر السيادة (The Sovereign Market)
+# 6. نظام المتجر العالمي (Dynamic Marketplace)
 # ==========================================
-elif st.session_state["page"] == "🛍️ متجر السيادة":
-    st.markdown("<h1 class='gold-text' style='text-align:center;'>🛍️ متجر الإمبراطورية العائمة</h1>", unsafe_allow_html=True)
+else:
+    st.markdown(f"<h1 style='color:#d4af37;'>{st.session_state['category']}</h1>", unsafe_allow_html=True)
     
-    products = [
-        {"n": "Oceanic AI Node", "p": "$18,000", "i": "🔱", "img": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400"},
-        {"n": "Sovereign Legal Bot", "p": "$4,500", "i": "📜", "img": "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=400"},
-        {"n": "Military Deep Security", "p": "$7,200", "i": "🔒", "img": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400"},
-    ]
+    # توليد بيانات وهمية للمنتجات بناءً على الفئة المختارة (لمحاكاة 10 صفحات)
+    data = {
+        "🤖 عملاء الذكاء الاصطناعي": [("AI Legal Agent Pro", "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400", "5,000$")],
+        "⚡ أنظمة الأتمتة": [("n8n Enterprise Node", "https://images.unsplash.com/photo-1551434678-e076c223a692?w=400", "1,200$")],
+        "📚 مكتبة PDF الرقمية": [("دليل الرقمنة الشامل", "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400", "150$")],
+        "📖 كتب ورقية تكنولوجية": [("مستقبل القانون 2030", "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=400", "85$")],
+        "🏛️ تكنولوجيا المكاتب": [("Sovereign Office Server", "https://images.unsplash.com/photo-1558494949-ef010cbdcc51?w=400", "3,500$")]
+    }
     
+    # عرض المنتجات
+    category_items = data.get(st.session_state["category"], [("منتج عالمي جديد", "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400", "اتصل للسعر")])
+    
+    # تكرار المنتجات لمحاكاة ضخامة المتجر
     cols = st.columns(3)
-    for idx, p in enumerate(products):
-        with cols[idx]:
+    for i in range(6): # عرض 6 منتجات في كل فئة
+        item = category_items[0]
+        with cols[i % 3]:
             st.markdown(f"""
-            <div class="luxury-card">
-                <div style="font-size:50px; margin-bottom:10px;">{p['i']}</div>
-                <h3 class="gold-text">{p['n']}</h3>
-                <h2 style="color:#10b981;">{p['p']}</h2>
-                <img src="{p['img']}" style="width:100%; border-radius:15px; margin:15px 0;">
+            <div class="product-card">
+                <div>
+                    <div class="icon-3d-box">💎</div>
+                    <img src="{item[1]}" class="product-img">
+                    <h3 style="margin-top:10px;">{item[0]}</h3>
+                    <p style="color:#94a3b8; font-size:12px;">حل رقمي معتمد من مكتب عديد العيد</p>
+                </div>
+                <div>
+                    <div class="product-price">{item[2]}</div>
+                </div>
             </div>
             """, unsafe_allow_html=True)
-            if st.button(f"أضف إلى الأسطول {idx}", key=f"buy_{idx}"):
-                st.session_state["cart"].append(p['n'])
-                st.toast(f"تمت إضافة {p['n']}")
+            if st.button(f"أضف للسلة - {i}", key=f"btn_{st.session_state['category']}_{i}"):
+                st.session_state["cart"].append(f"{item[0]} {i}")
+                st.toast(f"تمت إضافة {item[0]}")
 
 # ==========================================
-# 3. رادار الـ GPS (The Radar)
+# 7. التذييل العالمي (Footer)
 # ==========================================
-elif st.session_state["page"] == "📍 رادار الـ GPS":
-    st.markdown("<h1 class='gold-text'>📡 رادار العقد السيادية</h1>", unsafe_allow_html=True)
-    df = pd.DataFrame({
-        'lat': [36.7, 25.2, 48.8, 40.7, 1.3],
-        'lon': [3.0, 55.2, 2.3, -74.0, 103.8]
-    })
-    st.map(df)
-    st.info("مواقع محطاتنا السيادية الموزعة في المحيطات الرقمية العالمية.")
-
-# ==========================================
-# 4. باقي الصفحات (Security & Admin)
-# ==========================================
-elif st.session_state["page"] == "🛡️ حصن البيانات":
-    st.markdown("<h1 class='gold-text'>🔒 الحماية تحت الصفر</h1>", unsafe_allow_html=True)
-    st.markdown("""
-    <div class="luxury-card">
-        <h3>تشفيرنا أعمق من المحيط</h3>
-        <p>نستخدم بروتوكولات Air-Gapped AI التي تعزل بياناتك تماماً عن شبكة الإنترنت العامة.</p>
-    </div>
-    """, unsafe_allow_html=True)
-    st.image("https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800")
-
-elif st.session_state["page"] == "⚙️ غرفة المحركات":
-    st.markdown("<h1 class='gold-text'>⚙️ مركز التحكم الفني</h1>", unsafe_allow_html=True)
-    if st.text_input("أدخل شفرة القبطان:", type="password") == "0000":
-        st.success("مرحباً أيها القبطان عديد العيد.")
-        st.metric("قوة المحرك الرقمي", "100%", "Full Power")
-        st.line_chart(np.random.randn(30, 3))
-
-# 7. التذييل (Footer)
 st.divider()
-st.markdown("<div style='text-align:center; color:#ee9b00; padding:20px;'>Adid Al-Eid Sovereign Ocean OS v8.0 | Built for the Elite | 2024</div>", unsafe_allow_html=True)
+st.markdown("""
+<div style="text-align:center; padding:40px; color:#64748b;">
+    <h3 style="color:#d4af37;">مؤسسة عديد العيد العالمية للرقمنة</h3>
+    <p>المقر الرئيسي للأتمتة والسيادة الرقمية | 📧 laidadid21@gmail.com | 📱 +213 671 81 63 46</p>
+    <div style="font-size:10px;">Build v10.0 Global Nexus | 2024 All Rights Reserved</div>
+</div>
+""", unsafe_allow_html=True)
