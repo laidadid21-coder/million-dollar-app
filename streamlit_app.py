@@ -2,135 +2,135 @@ import streamlit as st
 
 # 1. إعدادات المنصة بملء الشاشة المتقدم
 st.set_page_config(
-    page_title="Sovereign Automation Hub | مكتب عديد العيد",
-    page_icon="🤖",
+    page_title="AliExpress Style Global Market | مكتب عديد العيد",
+    page_icon="🛒",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
 
-# 2. هندسة التصميم البصري (CSS المتقدم لإلغاء النمط البدائي)
+# 2. هندسة التصميم البصري (CSS المتقدم لمنع المظهر البدائي)
 st.markdown("""
     <style>
-    .main { background-color: #f8fafc; }
-    h1, h2, h3 { font-family: 'Cairo', sans-serif; text-align: right; color: #0f172a; }
+    /* خلفية المنصة وتنسيق النصوص */
+    .main { background-color: #f4f4f7; }
+    h1, h2, h3 { color: #222222; font-family: 'Cairo', sans-serif; text-align: right; }
     
-    /* بنر القضاء على الفوضى الورقية */
-    .hero-banner {
-        background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+    /* تصميم البنر الإعلاني العلوي الاحترافي */
+    .promo-banner {
+        background: linear-gradient(135deg, #FF4742 0%, #FDC830 100%);
         color: white;
-        padding: 45px;
-        border-radius: 16px;
+        padding: 40px;
+        border-radius: 15px;
         text-align: right;
-        margin-bottom: 35px;
-        box-shadow: 0 10px 25px rgba(59, 130, 246, 0.15);
+        margin-bottom: 30px;
+        box-shadow: 0px 4px 15px rgba(0,0,0,0.05);
     }
-    .hero-banner h1 { color: white; font-size: 36px; font-weight: 800; margin: 0; }
-    .hero-banner p { font-size: 18px; margin-top: 12px; opacity: 0.9; }
+    .promo-banner h1 { color: white; margin: 0; font-size: 32px; font-weight: bold; }
+    .promo-banner p { font-size: 18px; margin-top: 10px; opacity: 0.9; }
     
-    /* بطاقات الأنظمة والمخططات */
-    .workflow-card {
+    /* تصميم بطاقات المنتجات والحلول (Product Cards) */
+    .product-card {
         background-color: white;
-        border-radius: 14px;
-        padding: 20px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.02);
-        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 16px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+        transition: transform 0.3s ease;
+        margin-bottom: 20px;
+        border: 1px solid #eaeaea;
         text-align: right;
-        margin-bottom: 25px;
-        transition: all 0.3s ease;
     }
-    .workflow-card:hover { transform: translateY(-5px); box-shadow: 0 12px 25px rgba(0,0,0,0.06); }
-    .price-tag { color: #ef4444; font-size: 24px; font-weight: 700; margin: 12px 0; font-family: sans-serif; }
-    .system-status { background-color: #e2fbe8; color: #15803d; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: bold; display: inline-block; }
+    .product-card:hover { transform: translateY(-5px); box-shadow: 0 6px 15px rgba(0,0,0,0.08); }
+    .product-price { color: #FF4742; font-size: 22px; font-weight: bold; margin: 10px 0; font-family: sans-serif; }
+    .product-title { font-size: 16px; font-weight: bold; color: #333; height: 45px; overflow: hidden; }
+    .product-tag { background-color: #FFF0F0; color: #FF4742; padding: 3px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; display: inline-block; }
     
-    /* أزرار التشغيل والطلب */
+    /* أزرار الشراء الفورية والعالمية */
     .stButton>button {
-        background-color: #1e3a8a !important;
+        background-color: #FF4742 !important;
         color: white !important;
-        border-radius: 8px !important;
+        border-radius: 20px !important;
+        border: none !important;
         font-weight: bold !important;
-        padding: 10px !important;
         width: 100%;
     }
-    .stButton>button:hover { background-color: #2563eb !important; }
+    .stButton>button:hover { background-color: #E03E39 !important; }
     </style>
 """, unsafe_allow_html=True)
 
-# 3. لوحة التحكم الجانبية لإدارة البيانات النشطة
+# 3. القائمة الجانبية لإدارة المتجر وتغيير المنتجات سحابياً
 with st.sidebar:
-    st.header("🛠️ مركز إدارة البنية التحتية")
-    st.write("تحرير بيانات الواجهة وتغذية محرك n8n سحابياً.")
-    dynamic_title = st.text_input("عنوان النظام المخصص:", value="نظام التحليل الآلي للفرص والعقود الاستثمارية")
-    dynamic_price = st.number_input("سعر الترخيص والتنفيذ (USD):", min_value=0.0, value=499.00)
+    st.header("⚙️ مركز إدارة وعرض المنتجات")
+    st.write("استخدم هذه اللوحة لتعديل المنتج المعروض في الواجهة الرئيسية.")
+    
+    input_title = st.text_input("اسم المنتج النشط:", value="نظام أتمتة العقود الذكية والتحول الرقمي للشركات")
+    input_price = st.number_input("سعر العرض المباشر (USD):", min_value=0.0, value=249.99)
+    input_tag = st.text_input("ملصق العرض (Tag):", value="العروض الفائقة")
+    
     st.divider()
-    uploaded_flow_img = st.file_uploader("📸 رفع لقطة شاشة لمخطط n8n لتحديث المعرض محلياً:", type=["png", "jpg", "jpeg"])
+    uploaded_file = st.file_uploader("📸 تغيير صورة المنتج الرئيسي بالواجهة الحية:", type=["png", "jpg", "jpeg"])
+    
+    st.divider()
+    st.caption("📜 بروتوكول مكتب عديد العيد - السيطرة الرقمية وتحصيل العمولات آلياً.")
 
-# 4. محتوى واجهة العرض الرئيسية
+# 4. واجهة المتجر الرئيسية (إصدار شاشات الحواسيب المراقبة)
+
+# أ. البنر الإعلاني العلوي لقسم الترويج
 st.markdown("""
-    <div class="hero-banner">
-        <h1>من الفوضى المكتبية إلى الرقمنة الشاملة ⚡</h1>
-        <p>الجيل الجديد من أنظمة تشغيل المكاتب القانونية والتجارية • بروتوكول 2026 (صفر ورقة)</p>
+    <div class="promo-banner">
+        <h1>ترقية الأعمال والرقمنة السيادية 🌐</h1>
+        <p>تعزيز كفاءة الأداء التجاري والقانوني • رؤية 2026 (صفر ورقة)</p>
+        <span style="background-color: black; color: white; padding: 6px 15px; border-radius: 20px; font-weight: bold; display: inline-block; margin-top: 15px;">تسوق الآن</span>
     </div>
 """, unsafe_allow_html=True)
 
-st.markdown("## 🤖 مستودع محركات الأتمتة السيادية (n8n Workflows)")
-st.markdown("تحويل العمل النظري والمعلومات المتدفقة إلى عوائد وعمولات مؤتمتة بالكامل بدون أي تدخل ورقي.")
+st.markdown("## 🔥 صفقات اليوم والحلول الرقمية الفائقة")
 st.markdown("---")
 
-# بناء شبكة العرض (Grid) باستخدام 3 أعمدة لعرض الأنظمة والمخططات
+# ب. شبكة عرض المنتجات والحلول (Product Grid) مقسمة إلى 3 أعمدة
 col1, col2, col3 = st.columns(3)
 
-# --- النظام الأول: نظام تحليل وتصنيف الفرص (AI Opportunity Analyzer) ---
+# --- المنتج الأول: لوحة تحليلات الحاسوب الداكنة والنشطة ---
 with col1:
-    st.markdown('<div class="workflow-card">', unsafe_allow_html=True)
-    st.markdown('<span class="system-status">نشط ومستقر • Active</span>', unsafe_allow_html=True)
+    st.markdown('<div class="product-card">', unsafe_allow_html=True)
     
-    # إذا قام المستخدم برفع صورة مخصصة من السايدبار يتم عرضها، وإلا يعرض صورة توضيحية لنظام المحرك الأول
-    if uploaded_flow_img is not None:
-        st.image(uploaded_flow_img, use_container_width=True)
+    # التحقق من رفع صورة مخصصة من اللوحة الجانبية، وإلا عرض الصورة الأصلية لشاشة التحليلات الداكنة الفائقة
+    if uploaded_file is not None:
+        st.image(uploaded_file, use_container_width=True)
     else:
-        # صورة تمثيلية دقيقة لغرفة محرك الويب هوك والذكاء الاصطناعي (مستوحاة من image_e81c6b.png)
-        st.image("https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500", caption="مخطط التدفق الرقمي: Webhook -> AI Classifier", use_container_width=True)
+        st.image("https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500", use_container_width=True)
         
-    st.markdown(f'### {dynamic_title}')
-    st.markdown("محرك متطور يستقبل البيانات عبر الـ Webhook ويقوم بتشغيل نماذج الذكاء الاصطناعي لفرز الفرص الثمينة وإرسال تنبيهات فورية عبر Gmail والتقويم تلقائياً.")
-    st.markdown(f'<div class="price-tag">${dynamic_price:,.2f}</div>', unsafe_allow_html=True)
+    st.markdown(f'<span class="product-tag">{input_tag}</span>', unsafe_allow_html=True)
+    st.markdown(f'<div class="product-title">{input_title}</div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="product-price">${input_price:,.2f}</div>', unsafe_allow_html=True)
     
-    if st.button("⚡ تفعيل البنية التحتية", key="flow_1"):
-        st.success("✅ أرسل النظام إشارة النبض السحابية لبيئة n8n الجاهزة! تم الربط.")
+    if st.button("🛒 شراء الآن الفوري", key="btn_prod_1"):
+        st.success("🎯 تم تأكيد طلبيتك بنظام الأتمتة! جاري تحويل البيانات إلى غرف المعالجة السحابية.")
     st.markdown('</div>', unsafe_allow_html=True)
 
-# --- النظام الثاني: نظام الأرشفة التلقائية وتطهير السحابة (Google Drive Cloud Cleaner) ---
+# --- المنتج الثاني: شاشة حاسوب محمول يعرض مخططات بيانية ساطعة ---
 with col2:
-    st.markdown('<div class="workflow-card">', unsafe_allow_html=True)
-    st.markdown('<span class="system-status">جاهز للنشر • Ready</span>', unsafe_allow_html=True)
+    st.markdown('<div class="product-card">', unsafe_allow_html=True)
+    st.image("https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500", use_container_width=True)
+    st.markdown('<span class="product-tag">عروض الحزمة</span>', unsafe_allow_html=True)
+    st.markdown('<div class="product-title">مستودعات أتمتة n8n الكاملة وجداول Airtable القانونية السيادية</div>', unsafe_allow_html=True)
+    st.markdown('<div class="product-price">$642.23</div>', unsafe_allow_html=True)
     
-    # صورة تمثيلية لنظام أتمتة السجلات والتحكم السحابي في الملفات (مستوحاة من image_e81fea.png)
-    st.image("https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=500", caption="مخطط الأتمتة: Cloud Drive Automation Nexus", use_container_width=True)
-    
-    st.markdown("### نظام التطهير والأرشفة الرقمية المستدامة")
-    st.markdown("تطبيق عملي لمبدأ (صفر ورقة). يقوم النظام بمراقبة المجلدات المحلية، تحويل الصيغ إلى JSON، فرز وتصنيف الملفات وتحديث قواعد البيانات مع حذف المجلدات القديمة آلياً.")
-    st.markdown('<div class="price-tag">$750.00</div>', unsafe_allow_html=True)
-    
-    if st.button("⚡ تفعيل البنية التحتية", key="flow_2"):
-        st.info("🔄 جاري مزامنة المجلدات المحلية مع نظام الأتمتة المركزي...")
+    if st.button("🛒 شراء الآن الفوري", key="btn_prod_2"):
+        st.success("🔥 تم تسجيل طلبك للحزمة الاستراتيجية. تفقد البريد الإلكتروني آلياً.")
     st.markdown('</div>', unsafe_allow_html=True)
 
-# --- النظام الثالث: نظام المراقبة واقتناص عمولات التسويق (Arbitrage Marketing Engine) ---
+# --- المنتج الثالث: شاشة حاسوب تفاعلية للتدقيق والتحليل الهندسي ---
 with col3:
-    st.markdown('<div class="workflow-card">', unsafe_allow_html=True)
-    st.markdown('<span class="system-status">قيد المراقبة • Monitoring</span>', unsafe_allow_html=True)
+    st.markdown('<div class="product-card">', unsafe_allow_html=True)
+    st.image("https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=500", use_container_width=True)
+    st.markdown('<span class="product-tag">تخفيض 50%</span>', unsafe_allow_html=True)
+    st.markdown('<div class="product-title">جلسة هندسة عكسية وتدقيق البنية التحتية الرقمية للمؤسسات الكبرى</div>', unsafe_allow_html=True)
+    st.markdown('<div class="product-price">$525.20</div>', unsafe_allow_html=True)
     
-    # صورة تمثيلية للوحات المراقبة وتحليل تدفقات المال والعمولات الرقمية
-    st.image("https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=500", caption="مخطط الرقابة: Market Arbitrage Loop", use_container_width=True)
-    
-    st.markdown("### محرك أتمتة التسويق الرقمي وجني العمولات الوسيطة")
-    st.markdown("نظام سحابي متكامل يربط بين المنصات الوسيطة (تيك توك، فايسبوك، لينكدين) لتحويل المنشورات والعناوين الترويجية إلى تدفق مالي مباشر وتأكيد طلبيات العملاء آلياً.")
-    st.markdown('<div class="price-tag">$890.00</div>', unsafe_allow_html=True)
-    
-    if st.button("⚡ تفعيل البنية التحتية", key="flow_3"):
-        st.success("🔥 تم تشغيل محرك اقتناص العمولات! البيانات تتدفق إلى Airtable.")
+    if st.button("🛒 شراء الآن الفوري", key="btn_prod_3"):
+        st.info("🔒 تم تفعيل مسار الحماية وتأكيد طلب الاستشارة الشخصية.")
     st.markdown('</div>', unsafe_allow_html=True)
 
-# تذييل المنصة الاحترافي
+# تذييل الصفحة الاحترافي لنظام السيادة
 st.markdown("---")
-st.markdown("<p style='text-align: center; color: #64748b;'>🔒 السيادة الكاملة للبيانات • تم التطوير بواسطة الأنظمة التشغيلية الذكية لمكتب المحامي عديد العيد</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; color: #888888;'>© 2026 جميع الحقوق محفوظة لشبكة التاجر العالمي السحابية | مكتب المحامي عديد العيد</p>", unsafe_allow_html=True)
