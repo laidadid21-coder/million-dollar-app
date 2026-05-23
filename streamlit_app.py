@@ -1,157 +1,137 @@
 import streamlit as st
 
-# 1. إعدادات الصفحة والجمالية العالمية
+# 1. إعدادات المنصة العالمية بملء الشاشة
 st.set_page_config(
-    page_title="Global Sales Nexus | مكتب عديد العيد",
-    page_icon="🌐",
+    page_title="AliExpress Style Global Market | مكتب عديد العيد",
+    page_icon="🛒",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="collapsed"
 )
 
-# تصميم واجهة مستخدم مخصصة باستخدام CSS خفيف لتفادي المظهر التقليدي
+# 2. تصميم CSS مخصص متقدم لكسر المظهر البدائي وتحويله إلى متجر حقيقي
 st.markdown("""
     <style>
-    .main { background-color: #fafafa; }
-    .stButton>button { width: 100%; background-color: #1E3A8A; color: white; border-radius: 8px; font-weight: bold; }
-    .stTabs [data-baseweb="tab"] { font-size: 16px; font-weight: bold; }
+    /* خلفية المنصة وتنسيق النصوص */
+    .main { background-color: #f4f4f7; }
+    h1, h2, h3 { color: #222222; font-family: 'Cairo', sans-serif; text-align: right; }
+    
+    /* تصميم البنر الإعلاني العلوي الاحترافي */
+    .promo-banner {
+        background: linear-gradient(135deg, #FF4742 0%, #FDC830 100%);
+        color: white;
+        padding: 40px;
+        border-radius: 15px;
+        text-align: right;
+        margin-bottom: 30px;
+        box-shadow: 0px 4px 15px rgba(0,0,0,0.05);
+    }
+    .promo-banner h1 { color: white; margin: 0; font-size: 32px; font-weight: bold; }
+    .promo-banner p { font-size: 18px; margin-top: 10px; opacity: 0.9; }
+    
+    /* تصميم بطاقات المنتجات الاحترافية (Product Cards) */
+    .product-card {
+        background-color: white;
+        border-radius: 12px;
+        padding: 16px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+        transition: transform 0.3s ease;
+        margin-bottom: 20px;
+        border: 1px solid #eaeaea;
+        text-align: right;
+    }
+    .product-card:hover { transform: translateY(-5px); box-shadow: 0 6px 15px rgba(0,0,0,0.08); }
+    .product-price { color: #FF4742; font-size: 22px; font-weight: bold; margin: 10px 0; font-family: sans-serif; }
+    .product-title { font-size: 16px; font-weight: bold; color: #333; height: 45px; overflow: hidden; }
+    .product-tag { background-color: #FFF0F0; color: #FF4742; padding: 3px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; display: inline-block; }
+    
+    /* أزرار الشراء الفورية */
+    .stButton>button {
+        background-color: #FF4742 !important;
+        color: white !important;
+        border-radius: 20px !important;
+        border: none !important;
+        font-weight: bold !important;
+        width: 100%;
+    }
+    .stButton>button:hover { background-color: #E03E39 !important; }
     </style>
 """, unsafe_allow_html=True)
 
-# 2. القائمة الجانبية (Sidebar) - إعدادات التاجر والسيادة
+# 3. القائمة الجانبية لإدارة المتجر وتغيير المنتجات (مخفية لراحة المستخدم)
 with st.sidebar:
-    st.image("https://cdn-icons-png.flaticon.com/512/3135/3135715.png", width=80)
-    st.title("⚙️ النظام التشغيلي")
-    st.subheader("بروتوكول السيطرة والربحية")
+    st.header("⚙️ مركز إدارة وعرض المنتجات")
+    st.write("استخدم هذه اللوحة لتعديل المنتج المعروض في الواجهة الرئيسية.")
     
-    product_type = st.radio("📦 طبيعة الأصل التجاري:", ["منتج رقمي (Digital)", "منتج مادي (Physical)"])
-    target_regions = st.multiselect("🌍 النطاق الجغرافي المستهدف:", ["الجزائر", "الخليج العربي", "أوروبا", "أمريكا الشمالية"])
+    input_title = st.text_input("اسم المنتج النشط:", value="نظام أتمتة العقود الذكية والتحول الرقمي للشركات")
+    input_price = st.number_input("سعر العرض المباشر (USD):", min_value=0.0, value=249.99)
+    input_tag = st.text_input("ملصق العرض (Tag):", value="العروض الفائقة")
     
     st.divider()
-    st.caption("📜 **بند السيادة:** مكتب المحامي عديد العيد - تحويل العمل النظري إلى تطبيق حقيقي مدر للمال والعمولات.")
-
-# 3. الهيكل الرئيسي للمنصة العالمية
-st.title("🌐 بوابة التاجر العالمي والتحول الرقمي الشامل")
-st.markdown("### نظام إدارة الأصول الرقمية، أتمتة التسويق، واقتناص عمولات السوق")
-
-# تقسيم المنصة إلى 4 بوابات تفاعلية ذكية (Tabs) لجودة متناهية
-tab_product, tab_marketing, tab_orders, tab_analytics = st.tabs([
-    "📦 إدارة وتصوير المنتجات", 
-    "📣 هندسة التسويق الرقمي", 
-    "🛒 تأكيد وتدقيق الطلبيات", 
-    "📊 لوحة أرباح المليون دولار"
-])
-
-# ----------------------------------------------------------------
-# التبويب الأول: إدارة وتصوير المنتجات (خيارات متقدمة وخانة تغيير الصور)
-# ----------------------------------------------------------------
-with tab_product:
-    st.subheader("📝 تفاصيل وثراء خيارات المنتج")
+    uploaded_file = st.file_uploader("📸 تغيير صورة المنتج الرئيسي بالواجهة:", type=["png", "jpg", "jpeg"])
     
-    col_p1, col_p2 = st.columns([2, 1])
-    
-    with col_p1:
-        product_name = st.text_input("🏷️ اسم المنتج الاستراتيجي / الخدمة القانونية الرقمية:", placeholder="مثال: نظام أتمتة العقود الذكية للشركات")
-        
-        # ميزات المنتج المتقدمة (مجموعة من الاختيارات في كل منتج)
-        col_sub1, col_sub2 = st.columns(2)
-        with col_sub1:
-            category = st.selectbox("🗂️ تصنيف فئة المنتج:", ["Legal Tech Consulting", "Automation JSON Workflows", "Digital Products", "AI Content Arbitrage"])
-            access_type = st.selectbox("🔑 نوع رخصة الوصول:", ["ترخيص دائم مدى الحياة", "اشتراك سنوي سحابي", "حقوق إعادة البيع الكاملة PLR"])
-        with col_sub2:
-            support_level = st.selectbox("🛠️ مستوى الدعم التقني الملحق:", ["دعم آلي 100% عبر الذكاء الاصطناعي", "دعم مخصص (بشري + آلة)", "بدون دعم (منتج جاهز للنشر)"])
-            delivery_speed = st.selectbox("⚡ سرعة التسليم للعميل:", ["تسليم فوري تلقائي الفورية", "خلال 24 ساعة بعد التدقيق"])
-            
-        description = st.text_area("📄 وصف القيمة المضافة والثغرة التي يستغلها المنتج في السوق:")
-        
-    with col_p2:
-        st.write("📸 **مركز إدارة الصور والهوية البصرية**")
-        # خانة تصوير وتغيير المنتج
-        uploaded_image = st.file_uploader("قم برفع أو تغيير صورة المنتج هنا للتحقق من جودة العرض:", type=["png", "jpg", "jpeg"])
-        
-        if uploaded_image is not None:
-            st.image(uploaded_image, caption="المعاينة الحية للأصل الرقمي المرفوع", use_container_width=True)
-            st.success("✅ تم دمج الهوية البصرية بنجاح في السيرفر.")
-        else:
-            st.warning("⚠️ في انتظار رفع صورة المنتج أو الشعار الرسمي لتغيير المظهر البدائي.")
+    st.divider()
+    st.caption("📜 بروتوكول مكتب عديد العيد - السيطرة الرقمية وتحصيل العمولات آلياً.")
 
-# ----------------------------------------------------------------
-# التبويب الثاني: هندسة التسويق الرقمي وعناوينها
-# ----------------------------------------------------------------
-with tab_marketing:
-    st.subheader("📣 قنوات التسويق الرقمي والمنصات الوسيطة لتحويل المعلومة إلى عمولة")
-    
-    col_m1, col_m2 = st.columns(2)
-    
-    with col_m1:
-        st.write("🔗 **تحديد المنصات الوسيطة وحملات النشر المستهدفة:**")
-        selected_platforms = st.multiselect(
-            "اختر منصات التسويق لتوليد سيناريو النشر التلقائي عبرها:",
-            ["تيك توك (TikTok Arbitrage)", "فايسبوك (Facebook Ads & Groups)", "لينكدين (LinkedIn B2B Contracts)"]
-        )
-        
-        ad_strategy = st.radio("🎯 استراتيجية تدفق الإعلانات:", ["إعلانات ممولة ذات عائد فوري", "صناعة محتوى فيروسي (Organic Viral Content)"])
-        base_price = st.number_input("💰 سعر البيع المقترح للاستهداف (بالدولار):", min_value=0.0, value=250.0)
+# 4. واجهة المتجر الرئيسية (AliExpress UI)
 
-    with col_m2:
-        st.write("📋 **عناوين الحملات ونصوص التسويق المقترحة (أتمتة المحتوى):**")
-        if selected_platforms:
-            st.info("💡 **نظام توليد العناوين التسويقية يعمل الآن:**")
-            if "تيك توك (TikTok Arbitrage)" in selected_platforms:
-                st.code("عنوان تيك توك: كيف تدير شركتك بنظام (صفر ورقة) في 2026 آلياً؟ شاهد الرابط!", language="text")
-            if "لينكدين (LinkedIn B2B Contracts)" in selected_platforms:
-                st.code("عنوان لينكدين: تقليص النفقات القانونية بنسبة 80% باستخدام أنظمة الـ LegalTech السحابية المستدامة.", language="text")
-            if "فايسبوك (Facebook Ads & Groups)" in selected_platforms:
-                st.code("عنوان فايسبوك: لأصحاب المشاريع الرقمية, احصل على خطتك السيادية القانونية بضغطة زر واحدة.", language="text")
-        else:
-            st.write("*يرجى اختيار منصة تسويقية واحدة على الأقل لتوليد عناوينها وحملاتها المخصصة تلقائياً.*")
+# أ. البنر الإعلاني العلوي الضخم لقسم الترويج
+st.markdown("""
+    <div class="promo-banner">
+        <h1>ترقية الأعمال والرقمنة السيادية 🌐</h1>
+        <p>تعزيز كفاءة الأداء التجاري والقانوني • رؤية 2026 (صفر ورقة)</p>
+        <span style="background-color: black; color: white; padding: 6px 15px; border-radius: 20px; font-weight: bold; display: inline-block; margin-top: 15px;">تسوق الآن</span>
+    </div>
+""", unsafe_allow_html=True)
 
-# ----------------------------------------------------------------
-# التبويب الثالث: تأكيد وتدقيق الطلبيات (نظام الحماية والربط العملي)
-# ----------------------------------------------------------------
-with tab_orders:
-    st.subheader("🛒 نظام تأكيد وثبات الطلبيات الواردة للمنصة")
-    
-    col_o1, col_o2 = st.columns([1, 2])
-    
-    with col_o1:
-        st.write("🔒 **بيانات تأكيد المشتري:**")
-        client_name = st.text_input("اسم العميل أو الشركة المتعاقدة:")
-        client_email = st.text_input("البريد الإلكتروني للعميل لربطه بـ Gmail:")
-        payment_status = st.selectbox("📊 حالة الدفع والتحويل المالي:", ["تم استلام الأموال بنجاح", "في انتظار التأكيد البنكي", "فشل الدفع - إلغاء تلقائي"])
-        
-        # خانة تأكيد الطلبيات الفورية
-        confirm_order = st.checkbox("أقر أنا التاجر بتأكيد هذه الطلبية وبدء التفعيل الفوري للأتمتة")
-        
-    with col_o2:
-        st.write("🛠️ **إجراءات المعالجة التنفيذية (نظام n8n المتوقع):**")
-        if confirm_order and product_name and client_name:
-            st.success(f"🔥 **تم تفعيل أمر التأكيد بنجاح!**")
-            st.json({
-                "الحالة": "جاهز للتمرير السحابي",
-                "المنتج": product_name,
-                "العميل": client_name,
-                "قناة التسويق المستغلة": selected_platforms if selected_platforms else "مباشر",
-                "مسار الأتمتة المستهدف": "Google Drive ➔ Gemini ➔ Airtable ➔ Gmail"
-            })
-            st.button("⚡ دفع البيانات فوراً لـ Airtable وتحصيل العمولات")
-        else:
-            st.info("⚡ *بمجرد ملء البيانات والضغط على خانة (أقر أنا التاجر بتأكيد هذه الطلبية)، سيقوم النظام ببناء ملف معالجة رقمي فوري يمنع التداخل الورقي نهائياً.*")
+st.markdown("## 🔥 صفقات اليوم والحلول الرقمية الفائقة")
+st.markdown("---")
 
-# ----------------------------------------------------------------
-# التبويب الرابع: لوحة أرباح المليون دولار (إبداع إضافي لكسر الجمود)
-# ----------------------------------------------------------------
-with tab_analytics:
-    st.subheader("📊 المحاكي الذكي للأرباح والعمولات المستهدفة")
-    st.markdown("---")
+# ب. شبكة عرض المنتجات الديناميكية (Product Grid) مقسمة إلى 3 أعمدة مثل المتاجر العالمية
+col1, col2, col3 = st.columns(3)
+
+# --- المنتج الأول: المنتج الديناميكي المرتبط بلوحة التحكم والرفع الجانبية ---
+with col1:
+    st.markdown('<div class="product-card">', unsafe_allow_html=True)
     
-    col_a1, col_a2, col_a3 = st.columns(3)
-    with col_a1:
-        st.metric(label="🎯 الهدف الاستراتيجي المستهدف", value="$1,000,000", delta="رؤية التحول الشامل")
-    with col_a2:
-        estimated_sales = st.slider("حدد عدد المبيعات المتوقعة شهرياً عبر الحملات المذكورة:", 1, 1000, 50)
-        calculated_revenue = estimated_sales * base_price
-    with col_a3:
-        st.metric(label="💰 العوائد الإجمالية المتوقعة للمنتج الحالي", value=f"${calculated_revenue:,.2f}", delta=f"بمعدل سعر ${base_price}")
+    # التحقق من رفع صورة مخصصة من اللوحة الجانبية، وإلا عرض صورة افتراضية احترافية لقسم الرقمنة
+    if uploaded_file is not None:
+        st.image(uploaded_file, use_container_width=True)
+    else:
+        st.image("https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500", use_container_width=True)
         
-    st.markdown("---")
-    st.info("🚀 **ملاحظة المستشار التقني:** تم بناء هذا النموذج متعدد الأبعاد والمزايا لإلغاء أي طابع بدائي وتوفير واجهة تفاعلية ذات جودة مستخدم (UX) فائقة الجودة وجاهزة للتسويق المباشر.")
+    st.markdown(f'<span class="product-tag">{input_tag}</span>', unsafe_allow_html=True)
+    st.markdown(f'<div class="product-title">{input_title}</div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="product-price">${input_price:,.2f}</div>', unsafe_allow_html=True)
+    
+    # زر تأكيد الطلب الفوري المرتبط بالأتمتة
+    if st.button("🛒 شراء الآن الفوري", key="btn_prod_1"):
+        st.success("🎯 تم تأكيد طلبيتك بنظام الأتمتة! جاري تحويل البيانات إلى غرف المعالجة السحابية.")
+    st.markdown('</div>', unsafe_allow_html=True)
+
+# --- المنتج الثاني: حزمة الأتمتة الجاهزة (مثال ثابت لتأكيد الثراء البصري) ---
+with col2:
+    st.markdown('<div class="product-card">', unsafe_allow_html=True)
+    st.image("https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500", use_container_width=True)
+    st.markdown('<span class="product-tag">عروض الحزمة</span>', unsafe_allow_html=True)
+    st.markdown('<div class="product-title">مستودعات أتمتة n8n الكاملة وجداول Airtable القانونية السيادية</div>', unsafe_allow_html=True)
+    st.markdown('<div class="product-price">$642.23</div>', unsafe_allow_html=True)
+    
+    if st.button("🛒 شراء الآن الفوري", key="btn_prod_2"):
+        st.success("🔥 تم تسجيل طلبك للحزمة الاستراتيجية. تفقد البريد الإلكتروني آلياً.")
+    st.markdown('</div>', unsafe_allow_html=True)
+
+# --- المنتج الثالث: استشارات التحول الرقمي والتسويق (مثال ثابت) ---
+with col3:
+    st.markdown('<div class="product-card">', unsafe_allow_html=True)
+    st.image("https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=500", use_container_width=True)
+    st.markdown('<span class="product-tag">تخفيض 50%</span>', unsafe_allow_html=True)
+    st.markdown('<div class="product-title">جلسة هندسة عكسية وتدقيق البنية التحتية الرقمية للمؤسسات الكبرى</div>', unsafe_allow_html=True)
+    st.markdown('<div class="product-price">$525.20</div>', unsafe_allow_html=True)
+    
+    if st.button("🛒 شراء الآن الفوري", key="btn_prod_3"):
+        st.info("🔒 تم تفعيل مسار الحماية وتأكيد طلب الاستشارة الشخصية.")
+    st.markdown('</div>', unsafe_allow_html=True)
+
+# تذييل الصفحة الاحترافي لنظام السيادة
+st.markdown("---")
+st.markdown("<p style='text-align: center; color: #888888;'>© 2026 جميع الحقوق محفوظة لشبكة التاجر العالمي السحابية | مكتب المحامي عديد العيد</p>", unsafe_allow_html=True)
