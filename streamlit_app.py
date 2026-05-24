@@ -2,7 +2,7 @@ import streamlit as st
 import streamlit.components.v1 as components
 import random
 
-# 1. إعدادات الإمبراطورية الرقمية v11.0 (تحديث)
+# 1. إعدادات الإمبراطورية الرقمية v11.5 (تحديث المنتجات الذكية)
 st.set_page_config(
     page_title="Adid Al-Eid | Digital Powerhouse",
     page_icon="💎",
@@ -14,36 +14,36 @@ st.set_page_config(
 if "cart" not in st.session_state: st.session_state["cart"] = []
 if "category" not in st.session_state: st.session_state["category"] = "الكل"
 
-# 3. محرك التصميم البصري المحدث (ألوان فواتح، وضوح، شعار جديد)
+# 3. محرك التصميم البصري المحدث (مستقر وفاتح بالكامل)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap');
     
     html, body, [data-testid="stAppViewContainer"] {
-        background: #f0f2f6 !important; /* لون خلفية رئيسي فاتح */
-        color: #1e293b !important; /* نص رئيسي داكن */
+        background: #f0f2f6 !important;
+        color: #1e293b !important;
         font-family: 'Cairo', sans-serif !important;
     }
 
-    /* --- الجهة اليسرى (Sidebar) - تحويل للألوان الفاتحة --- */
+    /* --- الجهة اليسرى (Sidebar) --- */
     [data-testid="stSidebar"] {
-        background: #ffffff !important; /* خلفية جانبية بيضاء نقية */
-        border-right: 2px solid #e2e8f0 !important; /* حدود رمادية خفيفة */
+        background: #ffffff !important;
+        border-right: 2px solid #e2e8f0 !important;
     }
     
     .sidebar-title {
-        color: #0f172a; /* عنوان داكن جداً وواضح */
+        color: #0f172a;
         font-size: 28px; font-weight: 900; text-align: center;
         margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px;
     }
 
-    /* تحسين وضوح أزرار القائمة الجانبية (تصميم مسطح وأكثر سطوعاً) */
+    /* تحسين وضوح أزرار القائمة الجانبية */
     .stRadio div[role="radiogroup"] label {
-        background: #f8fafc !important; /* خلفية زر فاتحة جداً */
-        border: 1px solid #e2e8f0 !important; /* حدود خفيفة */
+        background: #f8fafc !important;
+        border: 1px solid #e2e8f0 !important;
         padding: 12px 20px !important;
         border-radius: 10px !important;
-        color: #334155 !important; /* نص داكن وواضح */
+        color: #334155 !important;
         font-weight: 600 !important;
         font-size: 16px !important;
         margin-bottom: 6px !important;
@@ -55,8 +55,8 @@ st.markdown("""
         transition: all 0.3s;
     }
     .stRadio div[role="radiogroup"] label[data-selected="true"] {
-        background-color: #0f172a !important; /* خلفية الزر المحدد */
-        color: #ffffff !important; /* نص أبيض للزر المحدد */
+        background-color: #0f172a !important;
+        color: #ffffff !important;
         font-weight: 700 !important;
     }
 
@@ -76,7 +76,7 @@ st.markdown("""
         margin: 0 auto 15px auto;
     }
 
-    /* --- السلايدر المتحرك (لا تغيير كبير، لكن ألوانه متناسبة) --- */
+    /* --- السلايدر المتحرك التلقائي --- */
     @keyframes scroll {
         0% { transform: translateX(0); }
         100% { transform: translateX(calc(-400px * 4)); }
@@ -88,11 +88,11 @@ st.markdown("""
     .slider-wrapper:hover { animation-play-state: paused; }
     .slide-item {
         width: 380px; height: 500px; margin: 10px;
-        border-radius: 20px; border: 3px solid #0f172a; /* حدود داكنة للوضوح */
-        object-fit: cover; filter: brightness(1.0); /* إرجاع السطوع الكامل */
+        border-radius: 20px; border: 3px solid #0f172a;
+        object-fit: cover; filter: brightness(1.0);
     }
 
-    /* --- بطاقات المتجر المحدثة (تصميم مسطح، ألوان فواتح) --- */
+    /* --- بطاقات المتجر المحدثة --- */
     .product-card {
         background: #ffffff;
         border: 1px solid #e2e8f0;
@@ -100,7 +100,7 @@ st.markdown("""
         padding: 25px;
         text-align: center;
         transition: 0.3s;
-        height: 480px;
+        height: 520px; /* زيادة الطول قليلاً لاستيعاب العناوين الجديدة الفخمة */
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -111,9 +111,8 @@ st.markdown("""
         box-shadow: 0 10px 15px rgba(0,0,0,0.1);
     }
     .product-img { width: 100%; height: 180px; border-radius: 8px; object-fit: cover; }
-    .product-price { color: #0f172a; font-size: 26px; font-weight: 800; }
+    .product-price { color: #0f172a; font-size: 26px; font-weight: 800; margin: 10px 0; }
     
-    /* أيقونات 3D للمنتجات (تحديث للتدرج) */
     .icon-3d-box {
         font-size: 40px; margin-bottom: 10px;
         filter: drop-shadow(0 0 10px rgba(15, 23, 42, 0.3));
@@ -125,12 +124,13 @@ st.markdown("""
         color: #ffffff !important;
         padding: 12px; border-radius: 8px;
         font-weight: 700; text-decoration: none; display: block;
+        text-align: center;
     }
     </style>
 """, unsafe_allow_html=True)
 
 # ==========================================
-# 4. القائمة الجانبية المحدثة (The Control Center)
+# 4. القائمة الجانبية (The Control Center)
 # ==========================================
 with st.sidebar:
     st.markdown('<div class="sidebar-title">ADID AL-EID</div>', unsafe_allow_html=True)
@@ -152,7 +152,6 @@ with st.sidebar:
         "💻 تراخيص البرمجيات"
     ]
     
-    # تحديث `key` لضمان إعادة رسم الراديو بالألوان الجديدة
     st.session_state["category"] = st.radio("تصفح الإمبراطورية:", categories, key="global_category")
     
     st.divider()
@@ -162,12 +161,11 @@ with st.sidebar:
         st.success("تم إرسال الطلب لغرفة العمليات")
 
 # ==========================================
-# 5. محتوى الصفحة الرئيسية (تحديث: شعار "L")
+# 5. محتوى الصفحة الرئيسية
 # ==========================================
 if st.session_state["category"] == "🌐 الرئيسية":
     st.markdown("""
     <div style="text-align:center; padding:20px;">
-        <!-- إضافة شعار 'L' الجديد -->
         <div class="logo-l">L</div>
         <h1 style="font-size:55px; font-weight:900; color:#0f172a;">مكتب المحامي عديد العيد</h1>
         <h2 style="color:#334155;">المنبع العالمي لرقمنة القانون والمؤسسات</h2>
@@ -175,7 +173,6 @@ if st.session_state["category"] == "🌐 الرئيسية":
     </div>
     """, unsafe_allow_html=True)
 
-    # السلايدر التلقائي (لا تغيير في الصور)
     images = [
         "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600",
         "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600",
@@ -199,60 +196,36 @@ if st.session_state["category"] == "🌐 الرئيسية":
     """
     components.html(slider_code, height=550)
     
-    # قسم الشركاء (تحديث لون العنوان)
     st.markdown("<h3 style='text-align:center; color:#0f172a;'>🤝 شركاء النجاح العالمي</h3>", unsafe_allow_html=True)
     st.markdown("<p style='text-align:center; color:#64748b;'>نظامنا معتمد في أكثر من 50 شركة كبرى ومكاتب محاماة دولية</p>", unsafe_allow_html=True)
 
 # ==========================================
-# 6. نظام المتجر العالمي المحدث (Dynamic Marketplace)
+# 6. نظام المتجر العالمي المتطور (إلغاء التكرار وإضافة التنوع)
 # ==========================================
 else:
     st.markdown(f"<h1 style='color:#0f172a;'>{st.session_state['category']}</h1>", unsafe_allow_html=True)
     
-    # توليد بيانات وهمية للمنتجات (تحديث الأسعار لأرقام واقعية)
+    # قاعدة البيانات المحدثة بمنتجات ذكاء اصطناعي وأتمتة وعقود فريدة ومبتكرة
     data = {
-        "🤖 عملاء الذكاء الاصطناعي": [("AI Legal Agent Pro", "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400", "5,000$")],
-        "⚡ أنظمة الأتمتة": [("n8n Enterprise Node", "https://images.unsplash.com/photo-1551434678-e076c223a692?w=400", "1,200$")],
-        "📚 مكتبة PDF الرقمية": [("دليل الرقمنة الشامل", "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400", "150$")],
-        "📖 كتب ورقية تكنولوجية": [("مستقبل القانون 2030", "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=400", "85$")],
-        "🏛️ تكنولوجيا المكاتب": [("Sovereign Office Server", "https://images.unsplash.com/photo-1558494949-ef010cbdcc51?w=400", "3,500$")]
-    }
-    
-    # عرض المنتجات (لا تغيير في المنطق، فقط الأسلوب البصري)
-    category_items = data.get(st.session_state["category"], [("منتج عالمي جديد", "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400", "اتصل للسعر")])
-    
-    cols = st.columns(3)
-    for i in range(6): # عرض 6 منتجات في كل فئة
-        item = category_items[0]
-        with cols[i % 3]:
-            st.markdown(f"""
-            <div class="product-card">
-                <div>
-                    <div class="icon-3d-box">💎</div>
-                    <img src="{item[1]}" class="product-img">
-                    <h3 style="margin-top:10px; color:#0f172a;">{item[0]}</h3>
-                    <p style="color:#64748b; font-size:12px;">حل رقمي معتمد من مكتب عديد العيد</p>
-                </div>
-                <div>
-                    <div class="product-price">{item[2]}</div>
-                    <!-- زر الشراء الجديد -->
-                    <a href="#" class="buy-btn">أضف للسلة الآن</a>
-                </div>
-            </div>
-            """, unsafe_allow_html=True)
-            # زر streamlit الأصلي تحت البطاقة لإضافة الوظيفة
-            if st.button(f"تأكيد الإضافة - {i}", key=f"btn_{st.session_state['category']}_{i}"):
-                st.session_state["cart"].append(f"{item[0]} {i}")
-                st.toast(f"تمت إضافة {item[0]}")
-
-# ==========================================
-# 7. التذييل العالمي المحدث (Footer)
-# ==========================================
-st.divider()
-st.markdown("""
-<div style="text-align:center; padding:40px; color:#64748b;">
-    <h3 style="color:#0f172a;">مؤسسة عديد العيد العالمية للرقمنة</h3>
-    <p>المقر الرئيسي للأتمتة والسيادة الرقمية | 📧 laidadid21@gmail.com | 📱 +213 671 81 63 46</p>
-    <div style="font-size:10px;">Build v11.0 Global Nexus | 2024 All Rights Reserved</div>
-</div>
-""", unsafe_allow_html=True)
+        "🤖 عملاء الذكاء الاصطناعي": [
+            ("AI Legal Agent Pro", "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400", "5,000$", "المساعد القانوني الرقمي لصياغة ومراجعة العقود وتوقع الأحكام."),
+            ("AI Financial Auditor", "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=400", "4,500$", "المحاسب الذكي والتدقيق المالي الفوري وتحليل الثغرات الضريبية."),
+            ("AI Executive Secretary", "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400", "3,200$", "سكرتير تنفيذي ذكي لإدارة المراسلات الرسمية، الجدولة وتلخيص الاجتماعات."),
+            ("AI HR Specialist", "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400", "3,800$", "عميل ذكاء اصطناعي متكامل لفرز السير الذاتية وإجراء المقابلات الأولية."),
+            ("AI Risk Analyst", "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=400", "6,000$", "محلل المخاطر السيادية والتحذير من البنود التعاقدية الخطرة غيابيًا."),
+            ("AI Operations Manager", "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400", "5,500$", "المدير الرقمي لمراقبة سير العمل وكفاءة الأقسام التشغيلية لحظيًا.")
+        ],
+        "⚡ أنظمة الأتمتة": [
+            ("أتمتة الموارد البشرية (HR-Auto)", "https://images.unsplash.com/photo-1521791136368-1a46827d53b2?w=400", "2,500$", "نظام أتمتة كامل لإدارة الحضور، الرواتب، وتتبع الأداء بدون تدخل بشري."),
+            ("نظام أتمتة المخازن الذكي", "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=400", "3,800$", "الربط الآلي للمخزون مع سلاسل التوريد وإصدار أوامر الشراء تلقائيًا."),
+            ("منظومة الأتمتة الكلية الشاملة", "https://images.unsplash.com/photo-1518770660439-4636190af475?w=400", "12,000$", "ربط مكاتب المؤسسة وفروعها بالكامل في شبكة عصبية مؤتمتة موحدة."),
+            ("نظام الأتمتة الجزئية للمهام", "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400", "1,500$", "أتمتة المهام الروتينية المتكررة مثل الفواتير البريدية وإدخال البيانات."),
+            ("أتمتة العمليات القانونية (LPA)", "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=400", "4,200$", "أتمتة رفع الدعاوى ومتابعة المواعيد القضائية مع المحاكم إلكترونيًا."),
+            ("أتمتة علاقات العملاء (CRM-Flow)", "https://images.unsplash.com/photo-1552581234-2612b75de6d6?w=400", "2,900$", "نظام ذكي للاستجابة التلقائية لاستفسارات الشركاء والعملاء الكبار.")
+        ],
+        "🔗 عقود الشركات الكبرى": [
+            ("حزمة التحول الرقمي السيادي", "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400", "اتصل للسعر", "عقد استراتيجي لنقل البنية التحتية للمؤسسات إلى سحابة محلية آمنة ومحمية."),
+            ("عقد الفحص النافي للجهالة الذكي", "https://images.unsplash.com/photo-1450133064473-71024230f91b?w=400", "15,000$", "اتفاقية فحص الشركات وتدقيق سجلاتها بالذكاء الاصطناعي قبل الاستحواذ."),
+            ("اتفاقية صيانة الحصانة الرقمية", "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=400", "8,000$", "عقد سنوي لحماية وتأمين الخوادم والأنظمة ضد عمليات الهندسة العكسية."),
+            ("اتفاقية صياغة حوكمة الشركات", "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=400", "9,500$", "إعداد اللوائح الداخلية وهيكلة الصلاحيات الرقمية للمدريرن والموظفين."),
+            ("عقد الدمج وال
