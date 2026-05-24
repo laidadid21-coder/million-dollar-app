@@ -2,7 +2,7 @@ import streamlit as st
 import streamlit.components.v1 as components
 import random
 
-# 1. إعدادات الإمبراطورية الرقمية v11.5 (تحديث المنتجات الذكية)
+# 1. إعدادات الإمبراطورية الرقمية v11.6 (تحديث وإصلاح شامل للأخطاء النحوية)
 st.set_page_config(
     page_title="Adid Al-Eid | Digital Powerhouse",
     page_icon="💎",
@@ -10,11 +10,11 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# 2. إدارة الحالة (لا تغيير)
+# 2. إدارة الحالة 
 if "cart" not in st.session_state: st.session_state["cart"] = []
 if "category" not in st.session_state: st.session_state["category"] = "الكل"
 
-# 3. محرك التصميم البصري المحدث (مستقر وفاتح بالكامل)
+# 3. محرك التصميم البصري (مستقر وفاتح بالكامل)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap');
@@ -100,7 +100,7 @@ st.markdown("""
         padding: 25px;
         text-align: center;
         transition: 0.3s;
-        height: 520px; /* زيادة الطول قليلاً لاستيعاب العناوين الجديدة الفخمة */
+        height: 520px; 
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -137,7 +137,6 @@ with st.sidebar:
     st.markdown('<p style="text-align:center; color:#64748b; font-size:12px; margin-top:-20px;">The Digitalization Source</p>', unsafe_allow_html=True)
     st.divider()
     
-    # تصنيفات المتجر (10 صفحات)
     categories = [
         "🌐 الرئيسية",
         "🤖 عملاء الذكاء الاصطناعي",
@@ -200,12 +199,12 @@ if st.session_state["category"] == "🌐 الرئيسية":
     st.markdown("<p style='text-align:center; color:#64748b;'>نظامنا معتمد في أكثر من 50 شركة كبرى ومكاتب محاماة دولية</p>", unsafe_allow_html=True)
 
 # ==========================================
-# 6. نظام المتجر العالمي المتطور (إلغاء التكرار وإضافة التنوع)
+# 6. نظام المتجر العالمي المصحح والمحمي تماماً
 # ==========================================
 else:
     st.markdown(f"<h1 style='color:#0f172a;'>{st.session_state['category']}</h1>", unsafe_allow_html=True)
     
-    # قاعدة البيانات المحدثة بمنتجات ذكاء اصطناعي وأتمتة وعقود فريدة ومبتكرة
+    # تم إغلاق جميع النصوص وعلامات التنصيص بدقة متناهية هنا لتجنب خطأ صورة image_6758a2.png
     data = {
         "🤖 عملاء الذكاء الاصطناعي": [
             ("AI Legal Agent Pro", "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400", "5,000$", "المساعد القانوني الرقمي لصياغة ومراجعة العقود وتوقع الأحكام."),
@@ -228,4 +227,53 @@ else:
             ("عقد الفحص النافي للجهالة الذكي", "https://images.unsplash.com/photo-1450133064473-71024230f91b?w=400", "15,000$", "اتفاقية فحص الشركات وتدقيق سجلاتها بالذكاء الاصطناعي قبل الاستحواذ."),
             ("اتفاقية صيانة الحصانة الرقمية", "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=400", "8,000$", "عقد سنوي لحماية وتأمين الخوادم والأنظمة ضد عمليات الهندسة العكسية."),
             ("اتفاقية صياغة حوكمة الشركات", "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=400", "9,500$", "إعداد اللوائح الداخلية وهيكلة الصلاحيات الرقمية للمدريرن والموظفين."),
-            ("عقد الدمج وال
+            ("عقد الدمج والربط العابر للقارات", "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400", "اتصل للسعر", "تكامل الأنظمة والبيانات بين الفروع الدولية للشركات متعددة الجنسيات."),
+            ("عقد تراخيص الأنظمة السيادية", "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400", "20,000$", "منح حقوق الملكية البرمجية المستقلة للمؤسسات دون الاعتماد على خوادم خارجية.")
+        ]
+    }
+    
+    category_items = data.get(
+        st.session_state["category"], 
+        [
+            ("حل رقمي استشاري مخصص", "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400", "حسب الطلب", "حلول برمجية مخصصة ومصممة بدقة لتلبية تطلعات واحتياجات مؤسستك.")
+        ]
+    )
+    
+    cols = st.columns(3)
+    num_items = len(category_items)
+    
+    for i in range(6): 
+        item = category_items[i % num_items]
+        
+        with cols[i % 3]:
+            st.markdown(f"""
+            <div class="product-card">
+                <div>
+                    <div class="icon-3d-box">💎</div>
+                    <img src="{item[1]}" class="product-img">
+                    <h3 style="margin-top:12px; color:#0f172a; font-size:20px; font-weight:700;">{item[0]}</h3>
+                    <p style="color:#64748b; font-size:13px; text-align:justify; margin-top:8px; line-height:1.5;">{item[3] if len(item) > 3 else item[0]}</p>
+                    <p style="color:#94a3b8; font-size:11px; margin-top:5px;">💡 معتمد من مكتب عديد العيد</p>
+                </div>
+                <div>
+                    <div class="product-price">{item[2]}</div>
+                    <a href="#" class="buy-btn">أضف للسلة الآن</a>
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            if st.button(f"تأكيد الإضافة - {item[0]}", key=f"btn_{st.session_state['category']}_{i}"):
+                st.session_state["cart"].append(f"{item[0]}")
+                st.toast(f"تمت إضافة {item[0]} إلى سلة المشتريات")
+
+# ==========================================
+# 7. التذييل العالمي (Footer)
+# ==========================================
+st.divider()
+st.markdown("""
+<div style="text-align:center; padding:40px; color:#64748b;">
+    <h3 style="color:#0f172a;">مؤسسة عديد العيد العالمية للرقمنة</h3>
+    <p>المقر الرئيسي للأتمتة والسيادة الرقمية | 📧 laidadid21@gmail.com | 📱 +213 671 81 63 46</p>
+    <div style="font-size:10px;">Build v11.6 Global Nexus | 2026 All Rights Reserved</div>
+</div>
+""", unsafe_allow_html=True)
