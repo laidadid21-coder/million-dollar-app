@@ -2,7 +2,7 @@ import streamlit as st
 import streamlit.components.v1 as components
 import random
 
-# 1. إعدادات المنصة الرقمية العالمية v11.9
+# 1. إعدادات المنصة الرقمية العالمية v12.0
 st.set_page_config(
     page_title="Adid Al-Eid | Global Digital Platform",
     page_icon="💎",
@@ -14,7 +14,7 @@ st.set_page_config(
 if "cart" not in st.session_state: st.session_state["cart"] = []
 if "chat_history" not in st.session_state: st.session_state["chat_history"] = []
 
-# 3. محرك التصميم البصري (تنسيق الواجهات والأزرار وعلم الجزائر في الرئيسية)
+# 3. محرك التصميم البصري المتقدم (شريط القوائم العلوي المستوحى من صورة وزارة العدل + علم الجزائر)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap');
@@ -47,20 +47,52 @@ st.markdown("""
         margin-bottom: 5px !important;
     }
 
-    /* هيدر ألوان علم الجزائر للرئيسية لضمان الامتثال والتصميم الإبداعي */
+    /* 🇩🇿 تصميم هيدر علم الجزائر للامتثال والاتساق الوطني */
     .dz-banner {
         display: flex;
-        height: 15px;
+        height: 12px;
         width: 100%;
-        border-radius: 8px;
+        border-radius: 4px;
         overflow: hidden;
-        margin-bottom: 25px;
+        margin-bottom: 10px;
     }
     .dz-green { background-color: #006633; flex: 1; }
-    .dz-white { background-color: #ffffff; flex: 1; display: flex; justify-content: center; align-items: center; position: relative; }
+    .dz-white { background-color: #ffffff; flex: 1; }
     .dz-red { background-color: #d21034; flex: 1; }
     
-    /* بطاقات التعريف بالشركة والخانات المحدثة */
+    /* 🏛️ شريط الخانات الصغيرة العلوي المستوحى تماماً من صورة image_71c647.jpg */
+    .justice-navbar {
+        display: flex;
+        justify-content: space-between;
+        background-color: #f8fafc;
+        border: 1px solid #cbd5e1;
+        border-top: 4px solid #006633;
+        border-radius: 8px;
+        padding: 8px;
+        margin-bottom: 20px;
+        direction: rtl;
+    }
+    .nav-item-box {
+        flex: 1;
+        text-align: center;
+        padding: 8px 5px;
+        margin: 0 4px;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
+        font-weight: 700;
+        font-size: 14px;
+        color: #0f172a;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        transition: all 0.2s ease;
+    }
+    .nav-item-box:hover {
+        background: #006633;
+        color: #ffffff;
+        border-color: #006633;
+    }
+
+    /* بطاقات معلومات الشركة والمكونات */
     .info-card {
         background: #ffffff;
         border-left: 5px solid #006633;
@@ -82,7 +114,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ==========================================
-# 4. قاموس الترجمة العالمي الشامل المحدث بالكامل
+# 4. قاموس الترجمة العالمي الشامل والمطور لثلاث لغات
 # ==========================================
 lexicon = {
     "العربية (Arabic)": {
@@ -109,12 +141,13 @@ lexicon = {
         "footer_title": "مؤسسة عديد العيد العالمية للرقمنة",
         "footer_desc": "المقر الرئيسي للأتمتة والسيادة الرقمية | 2026 جميع الحقوق محفوظة",
         "about_firm": "🏢 التعريف بالمؤسسة الرقمية ومكوناتها",
-        "about_desc": "مؤسسة تكنولوجية رائدة تدمج الذكاء الاصطناعي والأتمتة لتطوير البنى التحتية القانونية والتجارية للمؤسسات حول العالم.",
+        "about_desc": "مؤسسة تكنولوجية رائدة تدمج الذكاء الاصطناعي والأتمتة لتطوير البنى التحتية القانونية والتجارية للمؤسسات حول العالم وضمان إلغاء المعاملات الورقية.",
         "exp_title": "🎯 خبراتنا ونشاطنا العابر للمنصات",
-        "exp_desc": "خبرة متكاملة في إدارة المشاريع الرقمية، التسويق الإلكتروني، وإدارة الحملات الإعلانية على المنصات الرسمية مثل LinkedIn و TikTok و Facebook Ads وتحقيق الأرباح عبر بيع المنتجات على Gumroad وأتمتة العمليات.",
-        "ai_bot_title": "🤖 مستشار السوبرماركت الرقمي (الرد الفوري والذكي)",
+        "exp_desc": "خبرة متكاملة في إدارة المشاريع الرقمية، التسويق الإلكتروني، وإدارة الحملات الإعلانية على المنصات الرسمية مثل LinkedIn و TikTok و Facebook Ads وتحقيق الأرباح عبر بيع المنتجات على Gumroad وأتمتة العمليات للتجارة الإلكترونية.",
+        "ai_bot_title": "🤖 مستشار السوبرماركت الرقمي الشامل للرد الفوري",
         "ai_bot_prompt": "اسأل العميل الذكي عن أي شيء يخص التجارة والتسويق وأتمتة شؤون الحياة ومشاريعك:",
         "ai_bot_btn": "إرسال الاستفسار",
+        "nav_tabs": ["🏢 المؤسسة", "💼 الخدمات الرقمية", "⚖️ حوكمة الأتمتة", "🌐 التعاون الدولي", "📢 الإعلام الرقمي", "📞 اتصل بنا والاستفسار"],
         "products": {
             "p1_name": "AI Legal Agent Pro",
             "p1_desc": "المساعد القانوني الرقمي لصياغة ومراجعة العقود وتوقع الأحكام بدقة.",
@@ -154,6 +187,7 @@ lexicon = {
         "ai_bot_title": "🤖 Digital Supermarket AI Agent (Instant Response)",
         "ai_bot_prompt": "Ask our smart AI client about commerce, marketing, automation, or your lifegoals:",
         "ai_bot_btn": "Send Inquiry",
+        "nav_tabs": ["🏢 Institution", "💼 Services", "⚖️ Automation Governance", "🌐 Int. Cooperation", "📢 Digital Media", "📞 Contact & Inquiry"],
         "products": {
             "p1_name": "AI Legal Agent Pro",
             "p1_desc": "The digital legal assistant for precise drafting, reviewing of contracts, and predicting judgments.",
@@ -193,6 +227,7 @@ lexicon = {
         "ai_bot_title": "🤖 Agent IA du Supermarché Digital (Réponse Instantanée)",
         "ai_bot_prompt": "Posez vos questions sur le commerce, le marketing, l'automatisation ou vos objectifs de vie :",
         "ai_bot_btn": "Envoyer la Demande",
+        "nav_tabs": ["🏢 Institution", "💼 Services", "⚖️ Gouvernance", "🌐 Coopération Int.", "📢 Médias", "📞 Contact & Demande"],
         "products": {
             "p1_name": "AI Legal Agent Pro",
             "p1_desc": "L'assistant juridique digital pour la rédaction précise, la révision des contrats et la prédiction des jugements.",
@@ -233,10 +268,10 @@ with st.sidebar:
         st.success(ctx["success_msg"])
 
 # ==========================================
-# 6. محتوى الصفحة الرئيسية (المحدثة بألوان العلم والخانات الاستشارية)
+# 6. محتوى الصفحة الرئيسية (شريط الخانات المستوحى من وزارة العدل + الحواسيب السابقة + خانات التعريف الذكية)
 # ==========================================
 if current_page == "HOME":
-    # 🇩🇿 هيدر ألوان علم الجزائر في واجهة الرئسية لإرضاء السلطات المحلية وتنظيم المظهر البصري الوطني
+    # 🇩🇿 هيدر ألوان علم الجزائر للامتثال والاتساق الوطني
     st.markdown("""
         <div class="dz-banner">
             <div class="dz-green"></div>
@@ -245,15 +280,41 @@ if current_page == "HOME":
         </div>
     """, unsafe_allow_html=True)
 
+    # 🏛️ بناء شريط الخانات الصغيرة المتراصة في الأعلى بناءً على النماذج الرسمية المعروضة في image_71c530.jpg و image_71c647.jpg
+    nav_html = f"""
+    <div class="justice-navbar">
+        <div class="nav-item-box">{ctx['nav_tabs'][0]}</div>
+        <div class="nav-item-box">{ctx['nav_tabs'][1]}</div>
+        <div class="nav-item-box">{ctx['nav_tabs'][2]}</div>
+        <div class="nav-item-box">{ctx['nav_tabs'][3]}</div>
+        <div class="nav-item-box">{ctx['nav_tabs'][4]}</div>
+        <div class="nav-item-box">{ctx['nav_tabs'][5]}</div>
+    </div>
+    """
+    st.markdown(nav_html, unsafe_allow_html=True)
+
     st.markdown(f"""
-    <div style="text-align:center; padding:10px;">
+    <div style="text-align:center; padding:5px;">
         <div class="logo-l">L</div>
-        <h1 style="font-size:45px; font-weight:900; color:#0f172a;">{ctx['main_title']}</h1>
-        <h2 style="color:#334155; font-size:22px;">{ctx['main_desc']}</h2>
+        <h1 style="font-size:42px; font-weight:900; color:#0f172a; margin-top:10px;">{ctx['main_title']}</h1>
+        <h2 style="color:#334155; font-size:20px; font-weight:400;">{ctx['main_desc']}</h2>
     </div>
     """, unsafe_allow_html=True)
     
-    # شبكة العرض التفاعلية لخانات التعريف والخبرات
+    # 💻 محرك السلايدر لعرض الحواسيب والأجهزة الرقمية الرائعة (تمت إعادتها وحمايتها بالكامل)
+    images = [
+        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600",
+        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600"
+    ]
+    slider_code = f"""
+    <div style="overflow: hidden; width: 100%; padding: 5px 0; display: flex; justify-content: center; gap: 15px;">
+        <img src="{images[0]}" style="width:400px; height:240px; border-radius:12px; border: 3px solid #006633; object-fit: cover;">
+        <img src="{images[1]}" style="width:400px; height:240px; border-radius:12px; border: 3px solid #d21034; object-fit: cover;">
+    </div>
+    """
+    components.html(slider_code, height=260)
+    
+    # شبكة الخانات التعريفية بالخبرات والمكونات والنشاط التجاري الإلكتروني والتسويق الرقمي
     st.divider()
     col_info1, col_info2 = st.columns(2)
     
@@ -262,7 +323,7 @@ if current_page == "HOME":
         <div class="info-card">
             <h3>{ctx['about_firm']}</h3>
             <p style="text-align: justify; line-height: 1.6; color:#334155;">{ctx['about_desc']}</p>
-            <span style="font-size:12px; color:#64748b;">💎 Zero Paper mandate initialized.</span>
+            <span style="font-size:12px; color:#64748b;">⚙️ Infrastructure Active.</span>
         </div>
         """, unsafe_allow_html=True)
         
@@ -271,37 +332,37 @@ if current_page == "HOME":
         <div class="info-card">
             <h3>{ctx['exp_title']}</h3>
             <p style="text-align: justify; line-height: 1.6; color:#334155;">{ctx['exp_desc']}</p>
-            <span style="font-size:12px; color:#64748b;">🚀 Maximizing digital product margins.</span>
+            <span style="font-size:12px; color:#64748b;">💰 Commission Arbitrage Enabled.</span>
         </div>
         """, unsafe_allow_html=True)
 
-    # 🤖 خانة الاتصال والاستفسار: رد عميل الذكاء الاصطناعي (صاحب السوبرماركت الرقمي الشامل)
+    # 🤖 خانة الاستفسار والاتصال: رد مستشار السوبرماركت الرقمي الشامل الممتد لكل جوانب الحياة والتجارة
     st.markdown(f"### {ctx['ai_bot_title']}")
     user_query = st.text_input(ctx["ai_bot_prompt"])
     
     if st.button(ctx["ai_bot_btn"]):
         if user_query:
-            # محاكاة الردود الذكية والشاملة القائمة على عولمة التجارة والأتمتة والوظائف الحقيقية وتحويل المعلومة لمال
+            # ردود ديناميكية تفاعلية تركز على تحويل العمل النظري لعمل تطبيقي وربطه بالوظائف الحقيقية والعمولات
             responses = [
-                "Welcome to the Digital Supermarket! Transforming theoretical ideas into pure automated profits on Gumroad, LinkedIn, and TikTok is our core asset. Your plan is bulletproof, expand it globally!",
-                "أهلاً بك في السوبرماركت الرقمي الشامل! كل جانب في الحياة يمكن أتمتته وتحويل معلوماته إلى عمولات أرباح عبر إعلانات تيك توك وفايسبوك ادس ولينكد إن. مشروعك جاهز لربطه بوظيفة حقيقية فوراً.",
-                "Bienvenue au Supermarché Digital! Notre infrastructure d'automatisation intègre vos flux de commerce électronique de manière transparente pour maximiser vos marges nettes. Exécutez maintenant!"
+                "Welcome to the Digital Supermarket Hub! Your lifegoals, e-commerce products, and social media campaigns on Gumroad, TikTok, and LinkedIn are fully optimized here to generate high-efficiency margins.",
+                "مرحباً بك في نظام السوبرماركت الرقمي الشامل الذي يمس كل جوانب الحياة! هدفنا الأساسي هو تحويل كل فكرة ومعلومة نظرية إلى تطبيق حقيقي مدر للربح والعمولات عبر أتمتة الحملات والبيع على قامرود، لينكد إن، وتيك توك وفايسبوك آدس.",
+                "Bienvenue sur l'infrastructure du Supermarché Digital! Chaque aspect opérationnel est automatisé pour convertir les informations stratégiques en commissions nettes sur LinkedIn et Gumroad."
             ]
             selected_resp = random.choice(responses) if "English" in selected_lang or "Français" in selected_lang else responses[1]
             st.session_state["chat_history"].append((user_query, selected_resp))
             
-    # عرض سجل حوارات المستشار الرقمي
+    # عرض سجل استفسارات المستشار الآلي الموجهة للتطبيق والوظائف
     for q, r in reversed(st.session_state["chat_history"]):
         st.info(f"**💬 Q:** {q}")
-        st.success(f"**🤖 AI:** {r}")
+        st.success(f"**🤖 AI (Supermarket Owner):** {r}")
 
 # ==========================================
-# 7. نظام عرض المنتجات (مع حماية وثبات الكود السابق والصور الثلاث)
+# 7. نظام عرض المنتجات (مع الحفاظ الكامل على الصور الثلاث وكافة الخيارات التفاعلية)
 # ==========================================
 else:
     st.markdown(f"<h1 style='color:#0f172a;'>{selected_radio}</h1>", unsafe_allow_html=True)
     
-    # البيانات البرمجية للصور الثلاث مع الحفاظ التام على كامل الخيارات السابقة
+    # محاذاة البيانات للصور الثلاث دون أي تغيير في محتواها الأصلي والخيارات المرفقة بها
     products_data = [
         {"name": ctx["products"]["p1_name"], "price": "5,000$", "img": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400", "desc": ctx["products"]["p1_desc"]},
         {"name": ctx["products"]["p2_name"], "price": "4,200$", "img": "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=400", "desc": ctx["products"]["p2_desc"]},
@@ -321,7 +382,7 @@ else:
             </div>
             """, unsafe_allow_html=True)
             
-            # الخيارات التفاعلية للصور الثلاث كاملة وبدون تغيير الكود الأصلي
+            # الخيارات التفاعلية للمنتجات كاملة بدون أي تعديل أو حذف
             with st.expander(ctx["expander_title"]):
                 st.write(f"**{ctx['prod_summary']}** {item['desc']}")
                 
@@ -333,7 +394,7 @@ else:
                 
                 st.divider()
                 
-                # تحميل مستند العقد والشرك بصيغة PDF
+                # تحميل مستند العقد والشرك بصيغة PDF المترجمة
                 pdf_content = f"Product: {item['name']}\nPrice: {item['price']}\nDescription: {item['desc']}\nGenerated officially by Adid Al-Eid Infrastructure."
                 st.download_button(
                     label=ctx["pdf_btn"],
@@ -343,7 +404,7 @@ else:
                     key=f"pdf_{idx}_{ctx['lang_code']}"
                 )
             
-            # زر الشراء وإضافة المنتجات إلى السلة
+            # زر إضافه المنتج إلى السلة
             if st.button(f"{ctx['add_cart_btn']} - {item['name']}", key=f"buy_{idx}_{ctx['lang_code']}"):
                 st.session_state["cart"].append(f"{item['name']} (x{quantity})")
                 st.toast(ctx["toast_msg"].format(qty=quantity, name=item['name']))
@@ -355,6 +416,6 @@ st.divider()
 st.markdown(f"""
 <div style="text-align:center; padding:10px; color:#64748b; font-size:12px;">
     <h4 style="color:#0f172a; margin:0;">{ctx['footer_title']}</h4>
-    <p style="margin:2px;">{ctx['footer_desc']} | Build v11.9 Global Nexus</p>
+    <p style="margin:2px;">{ctx['footer_desc']} | Build v12.0 Official Architecture</p>
 </div>
 """, unsafe_allow_html=True)
