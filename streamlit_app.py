@@ -2,7 +2,7 @@ import streamlit as st
 import streamlit.components.v1 as components
 import random
 
-# 1. إعدادات المنصة الرقمية العالمية v12.0
+# 1. إعدادات المنصة الرقمية العالمية v12.5 (نسخة التفاصيل الكاملة)
 st.set_page_config(
     page_title="Adid Al-Eid | Global Digital Platform",
     page_icon="💎",
@@ -17,7 +17,7 @@ if "chat_history" not in st.session_state: st.session_state["chat_history"] = []
 # 3. محرك التصميم البصري المتقدم (شريط القوائم العلوي المستوحى من صورة وزارة العدل + علم الجزائر)
 st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght=300;400;700;900&display=swap');
     
     html, body, [data-testid="stAppViewContainer"] {
         background: #f0f2f6 !important;
@@ -60,7 +60,7 @@ st.markdown("""
     .dz-white { background-color: #ffffff; flex: 1; }
     .dz-red { background-color: #d21034; flex: 1; }
     
-    /* 🏛️ شريط الخانات الصغيرة العلوي المستوحى تماماً من صورة image_71c647.jpg */
+    /* 🏛️ شريط الخانات الصغيرة العلوي المستوحى تماماً من صورة وزارة العدل */
     .justice-navbar {
         display: flex;
         justify-content: space-between;
@@ -280,7 +280,7 @@ if current_page == "HOME":
         </div>
     """, unsafe_allow_html=True)
 
-    # 🏛️ بناء شريط الخانات الصغيرة المتراصة في الأعلى بناءً على النماذج الرسمية المعروضة في image_71c530.jpg و image_71c647.jpg
+    # 🏛️ بناء شريط الخانات الصغيرة المتراصة في الأعلى بناءً على النماذج الرسمية المعروضة في المعاينة
     nav_html = f"""
     <div class="justice-navbar">
         <div class="nav-item-box">{ctx['nav_tabs'][0]}</div>
@@ -342,7 +342,6 @@ if current_page == "HOME":
     
     if st.button(ctx["ai_bot_btn"]):
         if user_query:
-            # ردود ديناميكية تفاعلية تركز على تحويل العمل النظري لعمل تطبيقي وربطه بالوظائف الحقيقية والعمولات
             responses = [
                 "Welcome to the Digital Supermarket Hub! Your lifegoals, e-commerce products, and social media campaigns on Gumroad, TikTok, and LinkedIn are fully optimized here to generate high-efficiency margins.",
                 "مرحباً بك في نظام السوبرماركت الرقمي الشامل الذي يمس كل جوانب الحياة! هدفنا الأساسي هو تحويل كل فكرة ومعلومة نظرية إلى تطبيق حقيقي مدر للربح والعمولات عبر أتمتة الحملات والبيع على قامرود، لينكد إن، وتيك توك وفايسبوك آدس.",
@@ -357,16 +356,38 @@ if current_page == "HOME":
         st.success(f"**🤖 AI (Supermarket Owner):** {r}")
 
 # ==========================================
-# 7. نظام عرض المنتجات (مع الحفاظ الكامل على الصور الثلاث وكافة الخيارات التفاعلية)
+# 7. نظام عرض المنتجات الديناميكي المطور (تغير الصور والأيقونات لكل قسم لمنع التكرار)
 # ==========================================
 else:
     st.markdown(f"<h1 style='color:#0f172a;'>{selected_radio}</h1>", unsafe_allow_html=True)
     
-    # محاذاة البيانات للصور الثلاث دون أي تغيير في محتواها الأصلي والخيارات المرفقة بها
+    # 🎯 تخصيص مصفوفة الصور بناءً على التبويب المفتوح لمنع التكرار الممل مع الحفاظ على الهيكل الثلاثي للأيقونات والخدمات
+    if current_page == "AGENTS":
+        images_pool = [
+            "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400",  # صورة روبوت ذكي قانوني
+            "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400",  # رسم تجريدي للذكاء القضائي
+            "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=400"   # شبكة معالجة ذكية عميقة
+        ]
+        badge_icon = "🤖"
+    elif current_page == "AUTO":
+        images_pool = [
+            "https://images.unsplash.com/photo-1518770660439-4636190af475?w=400",  # دوائر أوتوماتيكية متكاملة
+            "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=400",  # ميزان عدالة رقمي مؤتمت
+            "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=400"   # خوادم سحابية مصفوفة وسريعة
+        ]
+        badge_icon = "⚡"
+    else:  # CONTRACTS
+        images_pool = [
+            "https://images.unsplash.com/photo-1450133064473-71024230f91b?w=400",  # توقيع شراكة عالمي وعقود كبرى
+            "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400",  # اجتماع حوكمة الشركات والبيانات
+            "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400"   # تدقيق وتكامل البيانات وحلول المال
+        ]
+        badge_icon = "🔗"
+
     products_data = [
-        {"name": ctx["products"]["p1_name"], "price": "5,000$", "img": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400", "desc": ctx["products"]["p1_desc"]},
-        {"name": ctx["products"]["p2_name"], "price": "4,200$", "img": "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=400", "desc": ctx["products"]["p2_desc"]},
-        {"name": ctx["products"]["p3_name"], "price": "15,000$", "img": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400", "desc": ctx["products"]["p3_desc"]}
+        {"name": ctx["products"]["p1_name"], "price": "5,000$", "img": images_pool[0], "desc": ctx["products"]["p1_desc"]},
+        {"name": ctx["products"]["p2_name"], "price": "4,200$", "img": images_pool[1], "desc": ctx["products"]["p2_desc"]},
+        {"name": ctx["products"]["p3_name"], "price": "15,000$", "img": images_pool[2], "desc": ctx["products"]["p3_desc"]}
     ]
     
     cols = st.columns(3)
@@ -375,7 +396,7 @@ else:
         with cols[idx % 3]:
             st.markdown(f"""
             <div class="product-card">
-                <div style="font-size: 30px;">💎</div>
+                <div style="font-size: 32px; margin-bottom: 5px;">{badge_icon}</div>
                 <img src="{item['img']}" class="product-img">
                 <h3 style="color:#0f172a; margin-top:10px;">{item['name']}</h3>
                 <div class="product-price">{item['price']}</div>
@@ -404,7 +425,7 @@ else:
                     key=f"pdf_{idx}_{ctx['lang_code']}"
                 )
             
-            # زر إضافه المنتج إلى السلة
+            # زر إضافة المنتج إلى السلة
             if st.button(f"{ctx['add_cart_btn']} - {item['name']}", key=f"buy_{idx}_{ctx['lang_code']}"):
                 st.session_state["cart"].append(f"{item['name']} (x{quantity})")
                 st.toast(ctx["toast_msg"].format(qty=quantity, name=item['name']))
@@ -416,6 +437,6 @@ st.divider()
 st.markdown(f"""
 <div style="text-align:center; padding:10px; color:#64748b; font-size:12px;">
     <h4 style="color:#0f172a; margin:0;">{ctx['footer_title']}</h4>
-    <p style="margin:2px;">{ctx['footer_desc']} | Build v12.0 Official Architecture</p>
+    <p style="margin:2px;">{ctx['footer_desc']} | Build v12.5 Official Architecture</p>
 </div>
 """, unsafe_allow_html=True)
