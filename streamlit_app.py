@@ -14,20 +14,20 @@ st.set_page_config(
 if "cart" not in st.session_state: st.session_state["cart"] = []
 if "chat_history" not in st.session_state: st.session_state["chat_history"] = []
 
-# 3. محرك التصميم البصري المتقدم لضمان الأناقة الاحترافية للمنصة
+# 3. محرك التصميم البصري المتقدم لضمان الأناقة الاحترافية للمنصة (تم تعديل اللون الأبيض إلى أزرق فاتح/بحري)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Cairo:wght=300;400;700;900&display=swap');
     
     html, body, [data-testid="stAppViewContainer"] {
-        background: #f0f2f6 !important;
+        background: #e0f2fe !important; /* لون أزرق بحري فاتح ومريح */
         color: #1e293b !important;
         font-family: 'Cairo', sans-serif !important;
     }
 
     [data-testid="stSidebar"] {
-        background: #ffffff !important;
-        border-right: 2px solid #e2e8f0 !important;
+        background: #f0f9ff !important; /* لون متناسق مع السيرفر والخلفية البحرية */
+        border-right: 2px solid #bae6fd !important;
     }
     
     .sidebar-title {
@@ -37,8 +37,8 @@ st.markdown("""
     }
 
     .stRadio div[role="radiogroup"] label {
-        background: #f8fafc !important;
-        border: 1px solid #e2e8f0 !important;
+        background: #ffffff !important;
+        border: 1px solid #bae6fd !important;
         padding: 10px 15px !important;
         border-radius: 10px !important;
         color: #334155 !important;
@@ -111,11 +111,40 @@ st.markdown("""
     }
     .product-img { width: 100%; height: 160px; border-radius: 8px; object-fit: cover; }
     .product-price { color: #006633; font-size: 24px; font-weight: 800; margin: 10px 0; }
+
+    /* 🔄 تأثير الأنميشن لشريط الصور المتحرك */
+    @keyframes scroll {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(calc(-310px * 6)); }
+    }
+    .slider-container {
+        overflow: hidden;
+        width: 100%;
+        position: relative;
+        padding: 10px 0;
+    }
+    .slider-track {
+        display: flex;
+        width: calc(310px * 12);
+        animation: scroll 30s linear infinite;
+    }
+    .slider-track:hover {
+        animation-play-state: paused;
+    }
+    .slide-img {
+        width: 290px;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 12px;
+        margin: 0 10px;
+        border: 2px solid #006633;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
     </style>
 """, unsafe_allow_html=True)
 
 # ==========================================
-# 4. قاموس البيانات والترجمة مع تخصيص منتجات وصور فريدة لكل قسم بالكامل
+# 4. قاموس البيانات والترجمة
 # ==========================================
 lexicon = {
     "العربية (Arabic)": {
@@ -217,7 +246,7 @@ lexicon = {
 }
 
 # ==========================================
-# 5. القائمة الجانبية (إدارة اللغات والتصنيفات والتحكم)
+# 5. القائمة الجانبية
 # ==========================================
 with st.sidebar:
     st.markdown('<div class="sidebar-title">ADID AL-EID</div>', unsafe_allow_html=True)
@@ -257,7 +286,7 @@ if current_page == "HOME":
         </div>
     """, unsafe_allow_html=True)
 
-    # 🏛️ بناء شريط الخانات الصغيرة المتراصة في الأعلى مقتبس من النماذج الرسمية
+    # 🏛️ بناء شريط الخانات الصغيرة المتراصة في الأعلى
     nav_html = f"""
     <div class="justice-navbar">
         <div class="nav-item-box">{ctx['nav_tabs'][0]}</div>
@@ -277,18 +306,38 @@ if current_page == "HOME":
     </div>
     """, unsafe_allow_html=True)
     
-    # 💻 محرك عرض صور الحواسيب والأجهزة الرقمية للبنية التحتية
-    images = [
-        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600",
-        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600"
+    # 💻 محرك عرض الصور المتحركة - يحتوي على 6 صور متخصصة في الرقمنة والمكاتب والمؤسسات
+    images_pool = [
+        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600",  # الرقمنة والبيانات
+        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600",  # أجهزة حواسيب مكاتب
+        "https://images.unsplash.com/photo-1497366216548-37526070297c?w=600",  # مكاتب ومؤسسات حديثة
+        "https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=600",  # واجهات عمل رقمية ومؤسسات صغيرة
+        "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600",  # تخطيط مالي ورقمي
+        "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600"   # عمل جماعي في شركة تقنية
     ]
-    slider_code = f"""
-    <div style="overflow: hidden; width: 100%; padding: 5px 0; display: flex; justify-content: center; gap: 15px;">
-        <img src="{images[0]}" style="width:400px; height:240px; border-radius:12px; border: 3px solid #006633; object-fit: cover;">
-        <img src="{images[1]}" style="width:400px; height:240px; border-radius:12px; border: 3px solid #d21034; object-fit: cover;">
+    
+    # بناء الـ Slider البرمجي عبر HTML والـ CSS لضمان حركة انسيابية لا تتوقف ومستمرة
+    slider_html = f"""
+    <div class="slider-container">
+        <div class="slider-track">
+            <!-- الـ 6 صور الأساسية -->
+            <img src="{images_pool[0]}" class="slide-img">
+            <img src="{images_pool[1]}" class="slide-img">
+            <img src="{images_pool[2]}" class="slide-img">
+            <img src="{images_pool[3]}" class="slide-img">
+            <img src="{images_pool[4]}" class="slide-img">
+            <img src="{images_pool[5]}" class="slide-img">
+            <!-- تكرار الصور برمجياً لضمان حركة سلسة وبدون فراغات أثناء الحركة الدائرية -->
+            <img src="{images_pool[0]}" class="slide-img">
+            <img src="{images_pool[1]}" class="slide-img">
+            <img src="{images_pool[2]}" class="slide-img">
+            <img src="{images_pool[3]}" class="slide-img">
+            <img src="{images_pool[4]}" class="slide-img">
+            <img src="{images_pool[5]}" class="slide-img">
+        </div>
     </div>
     """
-    components.html(slider_code, height=260)
+    components.html(slider_html, height=210)
     
     # شبكة الخانات التعريفية بالخبرات والمكونات والنشاط التجاري الإلكتروني
     st.divider()
@@ -312,7 +361,7 @@ if current_page == "HOME":
         </div>
         """, unsafe_allow_html=True)
 
-    # 🤖 خانة الاستفسار والاتصال الفوري لنظام السوبرماركت الرقمي الشامل
+    # 🤖 خانة الاستفسار والاتصال الفوري
     st.markdown(f"### {ctx['ai_bot_title']}")
     user_query = st.text_input(ctx["ai_bot_prompt"])
     
@@ -321,7 +370,7 @@ if current_page == "HOME":
             responses = [
                 "Welcome to the Digital Supermarket Hub! Your lifegoals, e-commerce products, and social media campaigns on Gumroad, TikTok, and LinkedIn are fully optimized here to generate high-efficiency margins.",
                 "مرحباً بك في نظام السوبرماركت الرقمي الشامل الذي يمس كل جوانب الحياة! هدفنا الأساسي هو تحويل كل فكرة ومعلومة نظرية إلى تطبيق حقيقي مدر للربح والعمولات عبر أتمتة الحملات والبيع على قامرود، لينكد إن، وتيك توك وفايسبوك آدس.",
-                "Bienvenue sur l'infrastructure du Supermarché Digital! Chaque aspect opérationnel est automatisé pour convertir les informations stratégiques en commissions nettes sur LinkedIn et Gumroad."
+                "Bienvenue sur l'infrastructure du Supermarché Digital! Chaque aspect opérationnel est automatisé para convertir les informations stratégiques en commissions nettes sur LinkedIn et Gumroad."
             ]
             selected_resp = random.choice(responses) if "English" in selected_lang or "Français" in selected_lang else responses[1]
             st.session_state["chat_history"].append((user_query, selected_resp))
@@ -331,31 +380,30 @@ if current_page == "HOME":
         st.success(f"**🤖 AI:** {r}")
 
 # ==========================================
-# 7. نظام عرض المنتجات المطور والمصلح بالكامل (تخصيص كامل لكل قسم وصور جديدة 100%)
+# 7. نظام عرض المنتجات المطور والمصلح بالكامل
 # ==========================================
 else:
     st.markdown(f"<h1 style='color:#0f172a;'>{selected_radio}</h1>", unsafe_allow_html=True)
     
-    # هنا نقوم بإنشاء فصل كامل في البيانات لكل قسم لمنع تداخل الأسماء والصور كما ظهر في ملفات المعاينة
     if current_page == "AGENTS":
         badge_icon = "🤖"
         products_pool = [
             {
                 "name": "Legal AI Assistant Pro" if ctx["lang_code"] == "en" else "مساعد القانون الذكي المحترف" if ctx["lang_code"] == "ar" else "Assistant Juridique IA Pro",
                 "price": "5,000$",
-                "img": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500", # صورة تمثيلية مخصصة للذكاء القانوني المتقدم والأزرق القضائي الرقمي
+                "img": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500",
                 "desc": "تحليل مستندات القضايا واستخراج الثغرات بدقة متناهية."
             },
             {
                 "name": "Contract Analytical Agent" if ctx["lang_code"] == "en" else "عميل تحليل ومراجعة العقود" if ctx["lang_code"] == "ar" else "Agent d'Analyse de Contrats",
                 "price": "4,200$",
-                "img": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=500", # معالجة ذكية للبيانات والشبكات العصبية
+                "img": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=500",
                 "desc": "مراجعة بنود الاتفاقيات الدولية ومطابقتها للقوانين تلقائياً."
             },
             {
                 "name": "Judicial Predictive Engine" if ctx["lang_code"] == "en" else "محرك التنبؤ بالأحكام القضائية" if ctx["lang_code"] == "ar" else "Moteur de Prédiction Judiciaire",
                 "price": "15,000$",
-                "img": "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=500", # خوارزميات ذكاء اصطناعي متطورة مخصصة للأحكام
+                "img": "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=500",
                 "desc": "التنبؤ بنسبة نجاح القضايا بناءً على الأرشيف القضائي الرقمي."
             }
         ]
@@ -365,41 +413,41 @@ else:
             {
                 "name": "Workflow Automation Nexus (n8n)" if ctx["lang_code"] == "en" else "نظام ربط وأتمتة سير العمل" if ctx["lang_code"] == "ar" else "Liaison d'Automatisation n8n",
                 "price": "3,800$",
-                "img": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=500", # صور الدوائر والرقاقات التكنولوجية للأتمتة والربط الرقمي
+                "img": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=500",
                 "desc": "ربط الأنظمة لضمان تدفق البيانات الرقمية تلقائياً وبسرعة فائقة لإنهاء المعاملات الورقية."
             },
             {
                 "name": "E-Invoicing Automated Core" if ctx["lang_code"] == "en" else "محرك الفوترة والتحصيل الإلكتروني" if ctx["lang_code"] == "ar" else "Noyau de Facturation Électronique",
                 "price": "4,500$",
-                "img": "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=500", # إدارة تدفق فواتير ومعلومات مالية أوتوماتيكية
+                "img": "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=500",
                 "desc": "إصدار وإرسال الفواتير ومتابعة المدفوعات أوتوماتيكياً دون تدخل بشري لتوفير الوقت."
             },
             {
                 "name": "Digital Archiving Syncer" if ctx["lang_code"] == "en" else "نظام المزامنة والأرشفة السحابية" if ctx["lang_code"] == "ar" else "Synchroniseur d'Archivage Numérique",
                 "price": "6,000$",
-                "img": "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=500", # خوادم رقمية للمزامنة السحابية الآمنة وحفظ الملفات
+                "img": "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=500",
                 "desc": "أرشفة وحماية المستندات بشكل فوري ومستمر لضمان أعلى مستويات الأمان والسيادة الرقمية."
             }
         ]
-    else:  # CONTRACTS (تم إصلاح المشكلة هنا بالكامل لإنهاء ظهور الوجوه البشرية غير المرغوبة كما في image_0ae384.jpg)
+    else:
         badge_icon = "🔗"
         products_pool = [
             {
                 "name": "Global Merger Constitution" if ctx["lang_code"] == "en" else "عقد الاندماج والتحالف المؤسسي العالمي" if ctx["lang_code"] == "ar" else "Contrat de Fusion Globale",
                 "price": "12,500$",
-                "img": "https://images.unsplash.com/photo-1450133064473-71024230f91b?w=500", # صورة احترافية رسمية لملفات العقود والأوراق القانونية دون تكرار
+                "img": "https://images.unsplash.com/photo-1450133064473-71024230f91b?w=500",
                 "desc": "حوكمة وصياغة تكامل الشركات الكبرى وتأمين الاستثمارات العابرة للحدود."
             },
             {
                 "name": "Data Integration Governance Agreement" if ctx["lang_code"] == "en" else "اتفاقية حوكمة وتكامل البيانات الرقمية" if ctx["lang_code"] == "ar" else "Accord de Gouvernance des Données",
                 "price": "9,800$",
-                "img": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=500", # صورة مخصصة لاجتماعات التدقيق، الأرقام والخطط المؤسسية
+                "img": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=500",
                 "desc": "صياغة الشروط القانونية لنقل وتبادل البيانات الرقمية بين الفروع الدولية والشركاء."
             },
             {
                 "name": "International Tech Venture Framework" if ctx["lang_code"] == "en" else "عقد الشراكة والاستثمار التكنولوجي الدولي" if ctx["lang_code"] == "ar" else "Cadre d'Investissement Technologique Inter",
                 "price": "18,000$",
-                "img": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=500", # صور أجهزة حواسب ومفاوضات تقنية متقدمة مخصصة للمشاريع الكبرى
+                "img": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=500",
                 "desc": "تنظيم أطر الاستثمار المشترك في البنى التحتية الرقمية وحماية الملكية الفكرية."
             }
         ]
